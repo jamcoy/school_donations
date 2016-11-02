@@ -141,6 +141,17 @@ function makeGraphs(error, projectsJson) {
        .height(250)
        .dimension(povertyLevelDim)
        .group(numProjectsByPovertyLevel)
+      .ordering(function(d) {
+          if (d.key == "highest poverty") {
+              return 0;
+          } else if (d.key == "high poverty") {
+              return 1;
+          } else if (d.key == "moderate poverty") {
+              return 2;
+          } else if (d.key == "low poverty") {
+              return 3;
+          }
+      })
        .xAxis().ticks(4);
  
    fundingStatusChart
