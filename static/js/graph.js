@@ -24,7 +24,6 @@ function makeGraphs(error, projectsJson) {
        d["date_posted"] = dateFormat.parse(d["date_posted"]);
        d["date_posted"].setDate(1);
        d["total_donations"] = +d["total_donations"];
-       d["grade_level"] = (d["grade_level"].split(" "))[1]; // remove repetitive 'grades' from labels
    });
  
  
@@ -148,10 +147,10 @@ function makeGraphs(error, projectsJson) {
        .transitionDuration(1500)
        .dimension(gradeLevelDim)
        .label(function (d) {
+           var label = d.key.split(" ")[1]; // remove repetitive 'grades' from labels
            if (gradeLevelChart.hasFilter() && !gradeLevelChart.hasFilter(d.key)) {
-                return d.key + '(0%)';
+                return label + '(0%)';
            }
-           var label = d.key;
            if (all.value()) {
                label += '(' + Math.floor(d.value / all.value() * 100) + '%)';
            }
