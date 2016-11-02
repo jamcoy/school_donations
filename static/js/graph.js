@@ -1,3 +1,16 @@
+// make these objects accessible at the global scope so they can be modified or
+// filtered by other page controls. (as recommended on dc-js github pages)
+// makes things like the reset buttons possible
+
+var timeChart,
+    resourceTypeChart,
+    povertyLevelChart,
+    numberProjectsND,
+    totalDonationsND,
+    fundingStatusChart,
+    primaryFocusAreaChart,
+    gradeLevelChart;
+
 queue()
    .defer(d3.json, "/donorsUS/projects")
    .await(makeGraphs);
@@ -73,14 +86,14 @@ function makeGraphs(error, projectsJson) {
    var maxDate = dateDim.top(1)[0]["date_posted"];
  
    //Charts
-   var timeChart = dc.barChart("#time-chart");
-   var resourceTypeChart = dc.rowChart("#resource-type-row-chart");
-   var povertyLevelChart = dc.rowChart("#poverty-level-row-chart");
-   var numberProjectsND = dc.numberDisplay("#number-projects-nd");
-   var totalDonationsND = dc.numberDisplay("#total-donations-nd");
-   var fundingStatusChart = dc.pieChart("#funding-chart");
-    var primaryFocusAreaChart = dc.rowChart("#primary-focus-area-row-chart")
-    var gradeLevelChart = dc.pieChart("#grade-level-row-chart")
+   timeChart = dc.barChart("#time-chart");
+   resourceTypeChart = dc.rowChart("#resource-type-row-chart");
+   povertyLevelChart = dc.rowChart("#poverty-level-row-chart");
+   numberProjectsND = dc.numberDisplay("#number-projects-nd");
+   totalDonationsND = dc.numberDisplay("#total-donations-nd");
+   fundingStatusChart = dc.pieChart("#funding-chart");
+   primaryFocusAreaChart = dc.rowChart("#primary-focus-area-row-chart")
+   gradeLevelChart = dc.pieChart("#grade-level-row-chart")
  
  
    selectField = dc.selectMenu('#menu-select')
@@ -134,6 +147,16 @@ function makeGraphs(error, projectsJson) {
        .radius(90)
        .transitionDuration(1500)
        .dimension(gradeLevelDim)
+       .label(function (d) {
+           if (gradeLevelChart.hasFilter() && !gradeLevelChart.hasFilter(d.key)) {
+                return d.key + '(0%)';
+           }
+           var label = d.key;
+           if (all.value()) {
+               label += '(' + Math.floor(d.value / all.value() * 100) + '%)';
+           }
+           return label;
+       })
        .group(numProjectsByGradeLevel);
  
    povertyLevelChart
