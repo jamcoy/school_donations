@@ -105,7 +105,8 @@ function makeGraphs(error, projectsJson) {
        .valueAccessor(function (d) {
            return d;
        })
-       .group(all);
+       .group(all)
+        .formatNumber(d3.format(','));
  
    totalDonationsND
        .formatNumber(d3.format("d"))
@@ -149,10 +150,10 @@ function makeGraphs(error, projectsJson) {
        .label(function (d) {
            var label = d.key.split(" ")[1]; // remove repetitive 'grades' from labels
            if (gradeLevelChart.hasFilter() && !gradeLevelChart.hasFilter(d.key)) {
-                return label + '(0%)';
+                return label + ' (0%)';
            }
            if (all.value()) {
-               label += '(' + Math.floor(d.value / all.value() * 100) + '%)';
+               label += ' (' + Math.floor(d.value / all.value() * 100) + '%)';
            }
            return label;
        })
