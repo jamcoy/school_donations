@@ -11,6 +11,7 @@ function makeGraphs(error, projectsJson) {
        d["date_posted"] = dateFormat.parse(d["date_posted"]);
        d["date_posted"].setDate(1);
        d["total_donations"] = +d["total_donations"];
+       d["grade_level"] = (d["grade_level"].split(" "))[1]; // remove repetitive 'grades' from labels
    });
  
  
@@ -37,6 +38,14 @@ function makeGraphs(error, projectsJson) {
    var fundingStatus = ndx.dimension(function (d) {
        return d["funding_status"];
    });
+
+    var primaryFocusAreaDim = ndx.dimension(function (d) {
+        return d["primary_focus_area"];
+    });
+
+    var gradeLevelDim = ndx.dimension(function (d) {
+        return d["grade_level"];
+    });
  
  
    //Calculate metrics
@@ -44,6 +53,8 @@ function makeGraphs(error, projectsJson) {
    var numProjectsByResourceType = resourceTypeDim.group();
    var numProjectsByPovertyLevel = povertyLevelDim.group();
    var numProjectsByFundingStatus = fundingStatus.group();
+    var numProjectsByPrimaryFocusArea = primaryFocusAreaDim.group();
+    var numProjectsByGradeLevel = gradeLevelDim.group();
    var totalDonationsByState = stateDim.group().reduceSum(function (d) {
        return d["total_donations"];
    });
@@ -68,6 +79,8 @@ function makeGraphs(error, projectsJson) {
    var numberProjectsND = dc.numberDisplay("#number-projects-nd");
    var totalDonationsND = dc.numberDisplay("#total-donations-nd");
    var fundingStatusChart = dc.pieChart("#funding-chart");
+    var primaryFocusAreaChart = dc.rowChart("#primary-focus-area-row-chart")
+    var gradeLevelChart = dc.pieChart("#grade-level-row-chart")
  
  
    selectField = dc.selectMenu('#menu-select')
@@ -108,6 +121,20 @@ function makeGraphs(error, projectsJson) {
        .dimension(resourceTypeDim)
        .group(numProjectsByResourceType)
        .xAxis().ticks(4);
+
+   primaryFocusAreaChart
+       .width(300)
+       .height(250)
+       .dimension(primaryFocusAreaDim)
+       .group(numProjectsByPrimaryFocusArea)
+       .xAxis().ticks(4);
+
+   gradeLevelChart
+       .height(220)
+       .radius(90)
+       .transitionDuration(1500)
+       .dimension(gradeLevelDim)
+       .group(numProjectsByGradeLevel);
  
    povertyLevelChart
        .width(300)
