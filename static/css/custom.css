@@ -11,6 +11,16 @@
    font-size: 12px;
 }
 
+.dc-chart .pie-slice {
+    fill: #111;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.dc-chart .pie-slice :hover{
+    fill-opacity: .8;
+}
+
 #total-projects {
    background: #33CC99;
    width: 200px;
@@ -36,7 +46,6 @@
    padding-top: 12px;
    padding-bottom: 0;
 }
-
 
 .dc-select-menu {
    background: #33CC99;

@@ -1,23 +1,29 @@
 from flask import Flask
 from flask import render_template
+from flask import send_from_directory
 from pymongo import MongoClient
 import json
 
 app = Flask(__name__)
 
-RESULT_LIMIT = 75000
+RESULT_LIMIT = 100000
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
 DBS_NAME = 'donorsUSA'
 COLLECTION_NAME = 'projects'
 FIELDS = {'funding_status': True, 'school_state': True, 'resource_type': True, 'poverty_level': True,
           'date_posted': True, 'total_donations': True, 'primary_focus_area': True, 'grade_level': True,
-          'school_state': True, '_id': False}
+          'school_state': True, 'school_county': True, '_id': False}
 
 
 @app.route("/")
 def index():
     return render_template("index.html")
+
+
+@app.route("/data/us_counties.json")
+def send_json():
+    return send_from_directory('./static/data', 'gz_2010_us_050_00_20m_simplified.json')
 
 
 @app.route("/donorsUS/projects")

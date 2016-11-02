@@ -9,13 +9,15 @@ var timeChart,
     totalDonationsND,
     fundingStatusChart,
     primaryFocusAreaChart,
-    gradeLevelChart;
+    gradeLevelChart,
+    countyChoropleth;
 
 queue()
    .defer(d3.json, "/donorsUS/projects")
+    .defer(d3.json, "/data/us_counties.json")
    .await(makeGraphs);
  
-function makeGraphs(error, projectsJson) {
+function makeGraphs(error, projectsJson, mapJson) {
  
    //Clean projectsJson data
    var donorsUSProjects = projectsJson;
@@ -43,6 +45,9 @@ function makeGraphs(error, projectsJson) {
    var stateDim = ndx.dimension(function (d) {
        return d["school_state"];
    });
+   var countyDim = ndx.dimension(function (d) {
+       return d["school_county"];
+   });
    var totalDonationsDim = ndx.dimension(function (d) {
        return d["total_donations"];
    });
@@ -58,8 +63,8 @@ function makeGraphs(error, projectsJson) {
     var gradeLevelDim = ndx.dimension(function (d) {
         return d["grade_level"];
     });
- 
- 
+
+
    //Calculate metrics
    var numProjectsByDate = dateDim.group();
    var numProjectsByResourceType = resourceTypeDim.group();
@@ -70,7 +75,11 @@ function makeGraphs(error, projectsJson) {
    var totalDonationsByState = stateDim.group().reduceSum(function (d) {
        return d["total_donations"];
    });
+   var totalDonationsByCounty = countyDim.group().reduceSum(function (d) {
+       return d["total_donations"];
+   });
    var stateGroup = stateDim.group();
+    var countyGroup = countyDim.group();
  
  
    var all = ndx.groupAll();
@@ -91,8 +100,9 @@ function makeGraphs(error, projectsJson) {
    numberProjectsND = dc.numberDisplay("#number-projects-nd");
    totalDonationsND = dc.numberDisplay("#total-donations-nd");
    fundingStatusChart = dc.pieChart("#funding-chart");
-   primaryFocusAreaChart = dc.rowChart("#primary-focus-area-row-chart")
-   gradeLevelChart = dc.pieChart("#grade-level-row-chart")
+   primaryFocusAreaChart = dc.rowChart("#primary-focus-area-row-chart");
+   gradeLevelChart = dc.pieChart("#grade-level-row-chart");
+    countyChoropleth = dc.geoChoroplethChart("#county-choropleth");
  
  
    selectField = dc.selectMenu('#menu-select')
@@ -147,6 +157,7 @@ function makeGraphs(error, projectsJson) {
        .radius(90)
        .transitionDuration(1500)
        .dimension(gradeLevelDim)
+       .externalLabels(20)
        .label(function (d) {
            var label = d.key.split(" ")[1]; // remove repetitive 'grades' from labels
            if (gradeLevelChart.hasFilter() && !gradeLevelChart.hasFilter(d.key)) {
@@ -184,7 +195,21 @@ function makeGraphs(error, projectsJson) {
        .transitionDuration(1500)
        .dimension(fundingStatus)
        .group(numProjectsByFundingStatus);
- 
+
+    countyChoropleth
+        .width(960)
+        .height(540)
+        .dimension(countyDim)
+        .group(countyGroup)
+        .overlayGeoJson(mapJson.features, 'school_county', function (d) {
+            return d.properties.NAME;
+        })
+        //.colors(colorbrewer.YlOrRd[9])
+        //.colorDomain([0, maxRisks])
+        .title(function (d) {
+            return d.key + ": Donations: " + (d.value ? d.value : 0);
+        });
+
  
    dc.renderAll();
 }
