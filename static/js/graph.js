@@ -92,7 +92,15 @@ function makeGraphs(error, projectsJson, mapJson) {
    //Define values (to be used in charts)
    var minDate = dateDim.bottom(1)[0]["date_posted"];
    var maxDate = dateDim.top(1)[0]["date_posted"];
- 
+
+    var width = 960,
+        height = 600;
+
+    var mapProjection = d3.geo.albersUsa()
+        .scale(1350)
+        .translate([width / 2, height / 2]);
+
+
    //Charts
    timeChart = dc.barChart("#time-chart");
    resourceTypeChart = dc.rowChart("#resource-type-row-chart");
@@ -129,8 +137,8 @@ function makeGraphs(error, projectsJson, mapJson) {
    ;
  
  timeChart
-       .width(800)
-       .height(200)
+       .width(960)
+       .height(100)
        .margins({top: 10, right: 50, bottom: 30, left: 50})
        .dimension(dateDim)
        .group(numProjectsByDate)
@@ -210,18 +218,18 @@ function makeGraphs(error, projectsJson, mapJson) {
 
     stateChoropleth
         .width(960)
-        .height(540)
+        .height(600)
         .dimension(stateDim)
         .group(stateGroup)
         .overlayGeoJson(mapJson.features, "school_state_full", function (d) {
             return d.properties.NAME;
         })
+        .projection(mapProjection)
         //.colors(colorbrewer.YlOrRd[9])
         //.colorDomain([0, maxRisks])
         .title(function (d) {
             return d.key + "\nDonations: " + (d.value ? d.value : 0);
         })
-        .legend(dc.legend().x(50).y(10).itemHeight(13).gap(5))
     ;
 
  

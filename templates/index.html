@@ -25,25 +25,21 @@
 
    <div class="row">
 
-       <div class="col-sm-8">
-           <div class="row">
+       <div class="col-lg-3">
 
-               <!-- Time Chart -->
-               <div class="col-sm-12">
-                   <div class="chart-wrapper" data-step="1" data-intro="The description that you want" style="font-weight: normal" data-position="right">
+                  <!-- Poverty -->
+                   <div class="chart-wrapper" data-step="7" data-intro="The description that you want" style="font-weight: normal" data-position="right">
                        <div class="chart-title">
-                           Number of Donations
-                           <a class="reset" href="javascript:timeChart.filterAll();dc.redrawAll();" style="">reset</a>
+                           Donations by Poverty Level
+                           <a class="reset" href="javascript:povertyLevelChart.filterAll();dc.redrawAll();" style="">reset</a>
                        </div>
                        <div class="chart-stage">
-                           <div id="time-chart"></div>
+                           <div id="poverty-level-row-chart"></div>
                        </div>
                    </div>
-               </div>
-               <!-- Time Chart -->
+               <!-- Poverty -->
 
                <!-- Resources -->
-               <div class="col-sm-6">
                    <div class="chart-wrapper" data-step="2" data-intro="The description that you want" style="font-weight: normal" data-position="right">
                        <div class="chart-title">
                            Donations by Resource Type
@@ -53,11 +49,9 @@
                            <div id="resource-type-row-chart"></div>
                        </div>
                    </div>
-               </div>
                <!-- Resources -->
 
               <!-- Primary focus area -->
-               <div class="col-sm-6">
                    <div class="chart-wrapper" data-step="3" data-intro="The description that you want" style="font-weight: normal" data-position="right">
                        <div class="chart-title">
                            Donations by Primary Focus Area
@@ -67,11 +61,9 @@
                            <div id="primary-focus-area-row-chart"></div>
                        </div>
                    </div>
-               </div>
                <!-- Primary focus area -->
 
               <!-- Grade level -->
-               <div class="col-sm-6">
                    <div class="chart-wrapper" data-step="5" data-intro="The description that you want" style="font-weight: normal" data-position="right">
                        <div class="chart-title">
                            Donations by Grade Level
@@ -81,11 +73,10 @@
                            <div id="grade-level-row-chart"></div>
                        </div>
                    </div>
-               </div>
                <!-- Grade level -->
 
                <!-- funding Pie -->
-               <div class="col-sm-6">
+
                    <div class="chart-wrapper" data-step="6" data-intro="The description that you want" style="font-weight: normal" data-position="right">
                        <div class="chart-title">
                            Funding Status
@@ -95,28 +86,14 @@
                            <div id="funding-chart"></div>
                        </div>
                    </div>
-               </div>
+
                <!-- funding Pie -->
 
-           </div>
        </div>
 
-       <!-- Poverty -->
-       <div class="col-sm-3">
-           <div class="chart-wrapper" data-step="7" data-intro="The description that you want" style="font-weight: normal" data-position="right">
-               <div class="chart-title">
-                   Donations by Poverty Level
-                   <a class="reset" href="javascript:povertyLevelChart.filterAll();dc.redrawAll();" style="">reset</a>
-               </div>
-               <div class="chart-stage">
-                   <div id="poverty-level-row-chart"></div>
-               </div>
-           </div>
-       </div>
-       <!-- Poverty -->
 
        <!-- menu select -->
-       <div class="col-sm-6">
+       <div class="col-sm-6" hidden>
            <div class="chart-wrapper" data-step="8" data-intro="The description that you want" style="font-weight: normal" data-position="right">
                <div class="chart-title">
                    Donations State (To be removed)
@@ -129,7 +106,7 @@
        <!-- menu select -->
 
        <!-- Metric 1 -->
-       <div class="col-sm-2">
+       <div class="col-lg-5">
            <div class="chart-wrapper" data-step="9" data-intro="The description that you want" style="font-weight: normal" data-position="right">
                <div class="chart-title">
                    Total Number of Donations
@@ -149,7 +126,7 @@
        <!-- Metric 1 -->
 
        <!-- Metric 2 -->
-       <div class="col-sm-2">
+       <div class="col-lg-4">
            <div class="chart-wrapper" data-step="10" data-intro="The description that you want" style="font-weight: normal" data-position="right">
                <div class="chart-title">
                    Total Donations in USD
@@ -161,8 +138,10 @@
        </div>
        <!-- Metric 2 -->
 
-   </div>
-    <div class="row">
+
+
+    <!-- Choropleth -->
+    <div class="col-lg-9">
        <div class="chart-wrapper" data-step="11" data-intro="The description that you want" style="font-weight: normal" data-position="right">
            <div class="chart-title">
                Donations by State
@@ -173,6 +152,21 @@
            </div>
        </div>
     </div>
+    <!-- Choropleth -->
+
+    <!-- Time Chart -->
+   <div class="col-lg-9">
+       <div class="chart-wrapper" data-step="1" data-intro="The description that you want" style="font-weight: normal" data-position="right">
+           <div class="chart-title">
+               Number of Donations
+               <a class="reset" href="javascript:timeChart.filterAll();dc.redrawAll();" style="">reset</a>
+           </div>
+           <div class="chart-stage">
+               <div id="time-chart"></div>
+           </div>
+       </div>
+   </div>
+   <!-- Time Chart -->
 
 </div>
 

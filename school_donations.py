@@ -6,7 +6,7 @@ import json
 
 app = Flask(__name__)
 
-RESULT_LIMIT = 100000
+RESULT_LIMIT = 10000
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
 DBS_NAME = 'donorsUSA'
