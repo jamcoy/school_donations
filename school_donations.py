@@ -6,7 +6,8 @@ import json
 
 app = Flask(__name__)
 
-RESULT_LIMIT = 200000
+RESULT_LIMIT = 50000
+RESULT_OFFSET = 0
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
 DBS_NAME = 'donorsUSA'
@@ -30,8 +31,8 @@ def send_json():
 def donor_projects():
     connection = MongoClient(MONGODB_HOST, MONGODB_PORT)
     collection = connection[DBS_NAME][COLLECTION_NAME]
-    projects = collection.find(projection=FIELDS, limit=RESULT_LIMIT).skip(0)  # first skip + 55,000
-    # projects = collection.find(projection=FIELDS).skip(collection.count() - RESULT_LIMIT)  # last 55,000 instead
+    projects = collection.find(projection=FIELDS, limit=RESULT_LIMIT).skip(RESULT_OFFSET)  # skip some from start
+    #  projects = collection.find(projection=FIELDS).skip(collection.count() - RESULT_LIMIT)  # latest instead
     json_projects = []
     for project in projects:
         json_projects.append(project)
