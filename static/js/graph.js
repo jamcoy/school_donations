@@ -93,12 +93,12 @@ function makeGraphs(error, projectsJson, mapJson) {
    var minDate = dateDim.bottom(1)[0]["date_posted"];
    var maxDate = dateDim.top(1)[0]["date_posted"];
 
-    var width = 960,
+    var width = 830,
         height = 600;
 
     var mapProjection = d3.geo.albersUsa()
-        .scale(1350)
-        .translate([width / 2, height / 2]);
+        .scale(1050)
+        .translate([(width / 2) - 20, height / 2]);
 
 
    //Charts
@@ -137,8 +137,8 @@ function makeGraphs(error, projectsJson, mapJson) {
    ;
  
  timeChart
-       .width(960)
-       .height(347)
+       .width(830)
+       .height(311)
        .margins({top: 10, right: 50, bottom: 30, left: 50})
        .dimension(dateDim)
        .group(numProjectsByDate)
@@ -151,7 +151,7 @@ function makeGraphs(error, projectsJson, mapJson) {
  
    resourceTypeChart
        .width(300)
-       .height(250)
+       .height(235)
        .dimension(resourceTypeDim)
        .group(numProjectsByResourceType)
        .elasticX(true)
@@ -160,7 +160,7 @@ function makeGraphs(error, projectsJson, mapJson) {
 
    primaryFocusAreaChart
        .width(300)
-       .height(250)
+       .height(235)
        .dimension(primaryFocusAreaDim)
        .group(numProjectsByPrimaryFocusArea)
        .elasticX(true)
@@ -168,7 +168,7 @@ function makeGraphs(error, projectsJson, mapJson) {
    ;
 
    gradeLevelChart
-       .height(220)
+       .height(235)
        .radius(90)
        .transitionDuration(1500)
        .dimension(gradeLevelDim)
@@ -189,7 +189,7 @@ function makeGraphs(error, projectsJson, mapJson) {
  
    povertyLevelChart
        .width(300)
-       .height(250)
+       .height(230)
        .dimension(povertyLevelDim)
        .group(numProjectsByPovertyLevel)
        .elasticX(true)
@@ -208,7 +208,7 @@ function makeGraphs(error, projectsJson, mapJson) {
    ;
  
    fundingStatusChart
-       .height(220)
+       .height(230)
        .radius(90)
        .innerRadius(40)
        .transitionDuration(1500)
@@ -217,7 +217,7 @@ function makeGraphs(error, projectsJson, mapJson) {
    ;
 
     stateChoropleth
-        .width(960)
+        .width(830)
         .height(600)
         .dimension(stateDim)
         .group(stateGroup)

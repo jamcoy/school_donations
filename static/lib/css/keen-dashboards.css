@@ -16,8 +16,8 @@ body.application div[class^="col-"] {
   padding-right: 5px;
 }
 body.application div[class^="col-"] div[class^="col-"] {
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 body.application hr {
