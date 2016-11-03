@@ -106,6 +106,8 @@ function makeGraphs(error, projectsJson, mapJson) {
         .scale(1050)
         .translate([(width / 2) - 20, height / 2]);
 
+    // keep the date charts nicely aligned
+    var dateDimChartMargins = {top: 30, right: 50, bottom: 25, left: 60};
 
    //Charts
    timeChart = dc.barChart("#time-chart");
@@ -129,7 +131,7 @@ function makeGraphs(error, projectsJson, mapJson) {
         .width(830)
         .height(273)
         .transitionDuration(1000)
-        .margins({top: 30, right: 50, bottom: 25, left: 50})
+        .margins(dateDimChartMargins)
         .dimension(dateDim)
         .group(valueDonationsByDate)
         .mouseZoomable(false)
@@ -141,6 +143,19 @@ function makeGraphs(error, projectsJson, mapJson) {
         .elasticY(true)
         .renderHorizontalGridLines(true)
         .yAxis().ticks(5)
+    ;
+
+     timeChart
+       .width(830)
+       .height(273)
+       .margins(dateDimChartMargins)
+       .dimension(dateDim)
+       .group(numProjectsByDate)
+       .transitionDuration(500)
+       .x(d3.time.scale().domain([minDate, maxDate]))
+       .elasticY(true)
+       .xAxisLabel("Year")
+       .yAxis().ticks(5)
     ;
 
     numberProjectsND
@@ -160,20 +175,7 @@ function makeGraphs(error, projectsJson, mapJson) {
        .group(totalDonations)
        .formatNumber(d3.format(".3s"))
    ;
- 
- timeChart
-       .width(830)
-       .height(273)
-       .margins({top: 10, right: 50, bottom: 30, left: 50})
-       .dimension(dateDim)
-       .group(numProjectsByDate)
-       .transitionDuration(500)
-       .x(d3.time.scale().domain([minDate, maxDate]))
-       .elasticY(true)
-       .xAxisLabel("Year")
-       .yAxis().ticks(5)
- ;
- 
+
    resourceTypeChart
        .width(300)
        .height(234)
