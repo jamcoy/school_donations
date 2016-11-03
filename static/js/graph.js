@@ -12,9 +12,6 @@ var timeChart,
     gradeLevelChart,
     stateChoropleth;
 
-var stateFullname = [];
-var stateAbbreviation = [];
-
 queue()
    .defer(d3.json, "/donorsUS/projects")
     .defer(d3.json, "/data/us_states_geo")
@@ -22,11 +19,12 @@ queue()
  
 function makeGraphs(error, projectsJson, mapJson) {
 
-    //Grab full state names from map data so we can use them to augment the donation data
-    var mapData = mapJson.features;
-    for (var i in mapData) {
-        stateFullname.push(mapData[i].properties.NAME);
-        stateAbbreviation.push(mapData[i].properties.ABBREVIATION);
+    //Grab full state names from map data so we can use them on the choropleth
+    var stateFullname = [];
+    var stateAbbreviation = [];
+    for (var i in mapJson.features) {
+        stateFullname.push(mapJson.features[i].properties.NAME);
+        stateAbbreviation.push(mapJson.features[i].properties.ABBREVIATION);
     }
  
    //Clean projectsJson data and add in full state names
@@ -36,6 +34,7 @@ function makeGraphs(error, projectsJson, mapJson) {
        d["date_posted"] = dateFormat.parse(d["date_posted"]);
        d["date_posted"].setDate(1);
        d["total_donations"] = +d["total_donations"];
+       d["school_state_full"] = stateFullname[stateAbbreviation.indexOf(d["school_state"])];
    });
  
    //Create a Crossfilter instance
@@ -52,7 +51,7 @@ function makeGraphs(error, projectsJson, mapJson) {
        return d["poverty_level"];
    });
    var stateDim = ndx.dimension(function (d) {
-       return d["school_state"];
+       return d["school_state_full"];
    });
    var totalDonationsDim = ndx.dimension(function (d) {
        return d["total_donations"];
@@ -112,7 +111,7 @@ function makeGraphs(error, projectsJson, mapJson) {
    ;
  
     numberProjectsND
-       .formatNumber(d3.format("d"))
+       //.formatNumber(d3.format("d"))
        .valueAccessor(function (d) {
            return d;
        })
@@ -121,7 +120,7 @@ function makeGraphs(error, projectsJson, mapJson) {
     ;
  
    totalDonationsND
-       .formatNumber(d3.format("d"))
+       //.formatNumber(d3.format("d"))
        .valueAccessor(function (d) {
            return d;
        })
@@ -147,6 +146,7 @@ function makeGraphs(error, projectsJson, mapJson) {
        .height(250)
        .dimension(resourceTypeDim)
        .group(numProjectsByResourceType)
+       .elasticX(true)
        .xAxis().ticks(4)
    ;
 
@@ -155,6 +155,7 @@ function makeGraphs(error, projectsJson, mapJson) {
        .height(250)
        .dimension(primaryFocusAreaDim)
        .group(numProjectsByPrimaryFocusArea)
+       .elasticX(true)
        .xAxis().ticks(4)
    ;
 
@@ -183,6 +184,7 @@ function makeGraphs(error, projectsJson, mapJson) {
        .height(250)
        .dimension(povertyLevelDim)
        .group(numProjectsByPovertyLevel)
+       .elasticX(true)
       .ordering(function(d) {
           if (d.key == "highest poverty") {
               return 0;
@@ -211,22 +213,17 @@ function makeGraphs(error, projectsJson, mapJson) {
         .height(540)
         .dimension(stateDim)
         .group(stateGroup)
-        .overlayGeoJson(mapJson.features, "school_state", function (d) {
-            return d.properties.ABBREVIATION;
+        .overlayGeoJson(mapJson.features, "school_state_full", function (d) {
+            return d.properties.NAME;
         })
         //.colors(colorbrewer.YlOrRd[9])
         //.colorDomain([0, maxRisks])
         .title(function (d) {
-            return stateFullname[stateAbbreviation.indexOf(d.key)] + " (" + d.key + ")" + "\nDonations: "
-                    + (d.value ? d.value : 0);
+            return d.key + "\nDonations: " + (d.value ? d.value : 0);
         })
         .legend(dc.legend().x(50).y(10).itemHeight(13).gap(5))
     ;
 
  
    dc.renderAll();
-}
-
-function findState(state) {
-    return states.name ;
 }
