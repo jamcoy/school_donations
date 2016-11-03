@@ -10,7 +10,10 @@ var timeChart,
     fundingStatusChart,
     primaryFocusAreaChart,
     gradeLevelChart,
-    stateChoropleth;
+    stateChoropleth,
+    selectField,
+    donationValueChart;
+
 
 queue()
    .defer(d3.json, "/donorsUS/projects")
@@ -80,6 +83,9 @@ function makeGraphs(error, projectsJson, mapJson) {
    var totalDonationsByState = stateDim.group().reduceSum(function (d) {
        return d["total_donations"];
    });
+       var valueDonationsByDate = dateDim.group().reduceSum(function (d) {
+       return d["total_donations"];
+   });
    var stateGroup = stateDim.group();
 
    var all = ndx.groupAll();
@@ -111,13 +117,32 @@ function makeGraphs(error, projectsJson, mapJson) {
    primaryFocusAreaChart = dc.rowChart("#primary-focus-area-row-chart");
    gradeLevelChart = dc.pieChart("#grade-level-row-chart");
     stateChoropleth = dc.geoChoroplethChart("#county-choropleth");
- 
- 
+    donationValueChart = dc.lineChart("#donation-value-line-chart");
+
    selectField = dc.selectMenu('#menu-select')
        .dimension(stateDim)
        .group(stateGroup)
    ;
- 
+
+    donationValueChart
+        .renderArea(true)
+        .width(830)
+        .height(273)
+        .transitionDuration(1000)
+        .margins({top: 30, right: 50, bottom: 25, left: 50})
+        .dimension(dateDim)
+        .group(valueDonationsByDate)
+        .mouseZoomable(false)
+        .brushOn(false)
+    // Specify a "range chart" to link its brush extent with the zoom of the current "focus chart".
+        .rangeChart(timeChart)
+        .x(d3.time.scale().domain([minDate, maxDate]))
+        .xAxisLabel("Year")
+        .elasticY(true)
+        .renderHorizontalGridLines(true)
+        .yAxis().ticks(5)
+    ;
+
     numberProjectsND
        //.formatNumber(d3.format("d"))
        .valueAccessor(function (d) {
@@ -138,7 +163,7 @@ function makeGraphs(error, projectsJson, mapJson) {
  
  timeChart
        .width(830)
-       .height(311)
+       .height(273)
        .margins({top: 10, right: 50, bottom: 30, left: 50})
        .dimension(dateDim)
        .group(numProjectsByDate)
@@ -146,12 +171,12 @@ function makeGraphs(error, projectsJson, mapJson) {
        .x(d3.time.scale().domain([minDate, maxDate]))
        .elasticY(true)
        .xAxisLabel("Year")
-       .yAxis().ticks(4)
+       .yAxis().ticks(5)
  ;
  
    resourceTypeChart
        .width(300)
-       .height(235)
+       .height(234)
        .dimension(resourceTypeDim)
        .group(numProjectsByResourceType)
        .elasticX(true)
@@ -160,7 +185,7 @@ function makeGraphs(error, projectsJson, mapJson) {
 
    primaryFocusAreaChart
        .width(300)
-       .height(235)
+       .height(234)
        .dimension(primaryFocusAreaDim)
        .group(numProjectsByPrimaryFocusArea)
        .elasticX(true)
@@ -168,18 +193,19 @@ function makeGraphs(error, projectsJson, mapJson) {
    ;
 
    gradeLevelChart
-       .height(235)
+        .height(234)
        .radius(90)
        .transitionDuration(1500)
        .dimension(gradeLevelDim)
-       .externalLabels(20)
+       .innerRadius(40)
+       .cx(220)
+       .cy(117)
        .label(function (d) {
-           var label = d.key.split(" ")[1]; // remove repetitive 'grades' from labels
            if (gradeLevelChart.hasFilter() && !gradeLevelChart.hasFilter(d.key)) {
-                return label + ' (0%)';
+                return '0%';
            }
            if (all.value()) {
-               label += ' (' + Math.floor(d.value / all.value() * 100) + '%)';
+               var label = Math.floor(d.value / all.value() * 100) + '%';
            }
            return label;
        })
@@ -189,7 +215,7 @@ function makeGraphs(error, projectsJson, mapJson) {
  
    povertyLevelChart
        .width(300)
-       .height(230)
+       .height(234)
        .dimension(povertyLevelDim)
        .group(numProjectsByPovertyLevel)
        .elasticX(true)
@@ -208,12 +234,15 @@ function makeGraphs(error, projectsJson, mapJson) {
    ;
  
    fundingStatusChart
-       .height(230)
+       .height(234)
        .radius(90)
        .innerRadius(40)
        .transitionDuration(1500)
        .dimension(fundingStatus)
+      .cx(220)
+       .cy(117)
        .group(numProjectsByFundingStatus)
+        .legend(dc.legend().x(20).y(10).itemHeight(13).gap(5))
    ;
 
     stateChoropleth
