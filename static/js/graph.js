@@ -12,14 +12,24 @@ var timeChart,
     gradeLevelChart,
     stateChoropleth;
 
+var stateFullname = [];
+var stateAbbreviation = [];
+
 queue()
    .defer(d3.json, "/donorsUS/projects")
     .defer(d3.json, "/data/us_states_geo")
    .await(makeGraphs);
  
 function makeGraphs(error, projectsJson, mapJson) {
+
+    //Grab full state names from map data so we can use it to augment the donation data
+    var mapData = mapJson.features;
+    for (var i in mapData) {
+        stateFullname.push(mapData[i].properties.NAME);
+        stateAbbreviation.push(mapData[i].properties.ABBREVIATION);
+    }
  
-   //Clean projectsJson data
+   //Clean projectsJson data and add in full state names
    var donorsUSProjects = projectsJson;
    var dateFormat = d3.time.format("%Y-%m-%d %H:%M:%S");
    donorsUSProjects.forEach(function (d) {
@@ -27,6 +37,9 @@ function makeGraphs(error, projectsJson, mapJson) {
        d["date_posted"].setDate(1);
        d["total_donations"] = +d["total_donations"];
    });
+
+
+
  
  
    //Create a Crossfilter instance
@@ -210,13 +223,14 @@ function makeGraphs(error, projectsJson, mapJson) {
         .height(540)
         .dimension(stateDim)
         .group(stateGroup)
-        .overlayGeoJson(mapJson.features, 'school_state', function (d) {
+        .overlayGeoJson(mapJson.features, "school_state", function (d) {
             return d.properties.ABBREVIATION;
         })
         //.colors(colorbrewer.YlOrRd[9])
         //.colorDomain([0, maxRisks])
         .title(function (d) {
-            return d.key + ": Donations: " + (d.value ? d.value : 0);
+            return stateFullname[stateAbbreviation.indexOf(d.key)] + " (" + d.key + ")" + "\nDonations: "
+                    + (d.value ? d.value : 0);
         })
         .legend(dc.legend().x(50).y(10).itemHeight(13).gap(5))
     ;
@@ -225,3 +239,6 @@ function makeGraphs(error, projectsJson, mapJson) {
    dc.renderAll();
 }
 
+function findState(state) {
+    return states.name ;
+}
