@@ -200,6 +200,17 @@ function makeGraphs(error, projectsJson, mapJson) {
        .innerRadius(40)
        .cx(220)
        .cy(117)
+       .ordering(function(d) {
+          if (d.key == "Grades PreK-2") {
+              return 0;
+          } else if (d.key == "Grades 3-5") {
+              return 1;
+          } else if (d.key == "Grades 6-8") {
+              return 2;
+          } else if (d.key == "Grades 9-12") {
+              return 3;
+          }
+      })
        .label(function (d) {
            if (gradeLevelChart.hasFilter() && !gradeLevelChart.hasFilter(d.key)) {
                 return '0%';
