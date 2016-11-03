@@ -22,7 +22,7 @@ queue()
  
 function makeGraphs(error, projectsJson, mapJson) {
 
-    //Grab full state names from map data so we can use it to augment the donation data
+    //Grab full state names from map data so we can use them to augment the donation data
     var mapData = mapJson.features;
     for (var i in mapData) {
         stateFullname.push(mapData[i].properties.NAME);
@@ -37,10 +37,6 @@ function makeGraphs(error, projectsJson, mapJson) {
        d["date_posted"].setDate(1);
        d["total_donations"] = +d["total_donations"];
    });
-
-
-
- 
  
    //Create a Crossfilter instance
    var ndx = crossfilter(donorsUSProjects);
@@ -57,9 +53,6 @@ function makeGraphs(error, projectsJson, mapJson) {
    });
    var stateDim = ndx.dimension(function (d) {
        return d["school_state"];
-   });
-   var countyDim = ndx.dimension(function (d) {
-       return d["school_county"];
    });
    var totalDonationsDim = ndx.dimension(function (d) {
        return d["total_donations"];
@@ -88,13 +81,8 @@ function makeGraphs(error, projectsJson, mapJson) {
    var totalDonationsByState = stateDim.group().reduceSum(function (d) {
        return d["total_donations"];
    });
-   var totalDonationsByCounty = countyDim.group().reduceSum(function (d) {
-       return d["total_donations"];
-   });
    var stateGroup = stateDim.group();
-    var countyGroup = countyDim.group();
- 
- 
+
    var all = ndx.groupAll();
    var totalDonations = ndx.groupAll().reduceSum(function (d) {
        return d["total_donations"];
