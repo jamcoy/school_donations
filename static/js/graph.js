@@ -130,19 +130,19 @@ function makeGraphs(error, projectsJson, mapJson) {
         .renderArea(true)
         .width(830)
         .height(273)
-        .transitionDuration(1000)
+        .transitionDuration(500)
         .margins(dateDimChartMargins)
         .dimension(dateDim)
         .group(valueDonationsByDate)
         .mouseZoomable(false)
         .brushOn(false)
-    // Specify a "range chart" to link its brush extent with the zoom of the current "focus chart".
+        // range chart links its extent with the zoom of the timeChart
         .rangeChart(timeChart)
         .x(d3.time.scale().domain([minDate, maxDate]))
         .xAxisLabel("Year")
         .elasticY(true)
         .renderHorizontalGridLines(true)
-        .yAxis().ticks(5)
+        .yAxis().ticks(8)
     ;
 
      timeChart
@@ -155,7 +155,8 @@ function makeGraphs(error, projectsJson, mapJson) {
        .x(d3.time.scale().domain([minDate, maxDate]))
        .elasticY(true)
        .xAxisLabel("Year")
-       .yAxis().ticks(5)
+     .renderHorizontalGridLines(true)
+       .yAxis().ticks(8)
     ;
 
     numberProjectsND
@@ -173,7 +174,7 @@ function makeGraphs(error, projectsJson, mapJson) {
            return d;
        })
        .group(totalDonations)
-       .formatNumber(d3.format(".3s"))
+       .formatNumber(d3.format("$.3s"))
    ;
 
    resourceTypeChart
@@ -197,7 +198,7 @@ function makeGraphs(error, projectsJson, mapJson) {
    gradeLevelChart
         .height(234)
        .radius(90)
-       .transitionDuration(1500)
+       .transitionDuration(1000)
        .dimension(gradeLevelDim)
        .innerRadius(40)
        .cx(220)
@@ -250,7 +251,7 @@ function makeGraphs(error, projectsJson, mapJson) {
        .height(234)
        .radius(90)
        .innerRadius(40)
-       .transitionDuration(1500)
+       .transitionDuration(1000)
        .dimension(fundingStatus)
       .cx(220)
        .cy(117)
