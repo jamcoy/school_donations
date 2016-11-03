@@ -138,7 +138,7 @@ function makeGraphs(error, projectsJson, mapJson) {
  
  timeChart
        .width(960)
-       .height(100)
+       .height(347)
        .margins({top: 10, right: 50, bottom: 30, left: 50})
        .dimension(dateDim)
        .group(numProjectsByDate)
