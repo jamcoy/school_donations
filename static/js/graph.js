@@ -14,7 +14,7 @@ var timeChart,
 
 queue()
    .defer(d3.json, "/donorsUS/projects")
-    .defer(d3.json, "/data/us_counties.json")
+    .defer(d3.json, "/data/us_states_geo")
    .await(makeGraphs);
  
 function makeGraphs(error, projectsJson, mapJson) {
@@ -199,10 +199,10 @@ function makeGraphs(error, projectsJson, mapJson) {
     countyChoropleth
         .width(960)
         .height(540)
-        .dimension(countyDim)
-        .group(countyGroup)
-        .overlayGeoJson(mapJson.features, 'school_county', function (d) {
-            return d.properties.NAME;
+        .dimension(stateDim)
+        .group(stateGroup)
+        .overlayGeoJson(mapJson.features, 'school_state', function (d) {
+            return d.properties.ABBREVIATION;
         })
         //.colors(colorbrewer.YlOrRd[9])
         //.colorDomain([0, maxRisks])

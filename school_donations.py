@@ -21,9 +21,9 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/data/us_counties.json")
+@app.route("/data/us_states_geo")
 def send_json():
-    return send_from_directory('./static/data', 'gz_2010_us_050_00_20m_simplified.json')
+    return send_from_directory('./static/data', 'US_states.json')
 
 
 @app.route("/donorsUS/projects")
