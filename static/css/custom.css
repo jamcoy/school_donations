@@ -17,10 +17,6 @@
     cursor: pointer;
 }
 
-.dc-chart .pie-slice :hover{
-    fill-opacity: .8;
-}
-
 #total-projects {
    background: #33CC99;
    width: 200px;
