@@ -10,7 +10,7 @@ var timeChart,
     fundingStatusChart,
     primaryFocusAreaChart,
     gradeLevelChart,
-    countyChoropleth;
+    stateChoropleth;
 
 queue()
    .defer(d3.json, "/donorsUS/projects")
@@ -102,7 +102,7 @@ function makeGraphs(error, projectsJson, mapJson) {
    fundingStatusChart = dc.pieChart("#funding-chart");
    primaryFocusAreaChart = dc.rowChart("#primary-focus-area-row-chart");
    gradeLevelChart = dc.pieChart("#grade-level-row-chart");
-    countyChoropleth = dc.geoChoroplethChart("#county-choropleth");
+    stateChoropleth = dc.geoChoroplethChart("#county-choropleth");
  
  
    selectField = dc.selectMenu('#menu-select')
@@ -174,6 +174,7 @@ function makeGraphs(error, projectsJson, mapJson) {
            return label;
        })
        .group(numProjectsByGradeLevel)
+       .legend(dc.legend().x(20).y(10).itemHeight(13).gap(5))
    ;
  
    povertyLevelChart
@@ -204,7 +205,7 @@ function makeGraphs(error, projectsJson, mapJson) {
        .group(numProjectsByFundingStatus)
    ;
 
-    countyChoropleth
+    stateChoropleth
         .width(960)
         .height(540)
         .dimension(stateDim)
@@ -217,8 +218,10 @@ function makeGraphs(error, projectsJson, mapJson) {
         .title(function (d) {
             return d.key + ": Donations: " + (d.value ? d.value : 0);
         })
+        .legend(dc.legend().x(50).y(10).itemHeight(13).gap(5))
     ;
 
  
    dc.renderAll();
 }
+
