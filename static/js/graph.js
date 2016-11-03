@@ -107,16 +107,17 @@ function makeGraphs(error, projectsJson, mapJson) {
  
    selectField = dc.selectMenu('#menu-select')
        .dimension(stateDim)
-       .group(stateGroup);
+       .group(stateGroup)
+   ;
  
- 
-   numberProjectsND
+    numberProjectsND
        .formatNumber(d3.format("d"))
        .valueAccessor(function (d) {
            return d;
        })
        .group(all)
-        .formatNumber(d3.format(','));
+        .formatNumber(d3.format(','))
+    ;
  
    totalDonationsND
        .formatNumber(d3.format("d"))
@@ -124,7 +125,8 @@ function makeGraphs(error, projectsJson, mapJson) {
            return d;
        })
        .group(totalDonations)
-       .formatNumber(d3.format(".3s"));
+       .formatNumber(d3.format(".3s"))
+   ;
  
  timeChart
        .width(800)
@@ -136,21 +138,24 @@ function makeGraphs(error, projectsJson, mapJson) {
        .x(d3.time.scale().domain([minDate, maxDate]))
        .elasticY(true)
        .xAxisLabel("Year")
-       .yAxis().ticks(4);
+       .yAxis().ticks(4)
+ ;
  
    resourceTypeChart
        .width(300)
        .height(250)
        .dimension(resourceTypeDim)
        .group(numProjectsByResourceType)
-       .xAxis().ticks(4);
+       .xAxis().ticks(4)
+   ;
 
    primaryFocusAreaChart
        .width(300)
        .height(250)
        .dimension(primaryFocusAreaDim)
        .group(numProjectsByPrimaryFocusArea)
-       .xAxis().ticks(4);
+       .xAxis().ticks(4)
+   ;
 
    gradeLevelChart
        .height(220)
@@ -168,7 +173,8 @@ function makeGraphs(error, projectsJson, mapJson) {
            }
            return label;
        })
-       .group(numProjectsByGradeLevel);
+       .group(numProjectsByGradeLevel)
+   ;
  
    povertyLevelChart
        .width(300)
@@ -186,7 +192,8 @@ function makeGraphs(error, projectsJson, mapJson) {
               return 3;
           }
       })
-       .xAxis().ticks(4);
+       .xAxis().ticks(4)
+   ;
  
    fundingStatusChart
        .height(220)
@@ -194,7 +201,8 @@ function makeGraphs(error, projectsJson, mapJson) {
        .innerRadius(40)
        .transitionDuration(1500)
        .dimension(fundingStatus)
-       .group(numProjectsByFundingStatus);
+       .group(numProjectsByFundingStatus)
+   ;
 
     countyChoropleth
         .width(960)
@@ -208,7 +216,8 @@ function makeGraphs(error, projectsJson, mapJson) {
         //.colorDomain([0, maxRisks])
         .title(function (d) {
             return d.key + ": Donations: " + (d.value ? d.value : 0);
-        });
+        })
+    ;
 
  
    dc.renderAll();

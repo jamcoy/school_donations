@@ -15,6 +15,7 @@
        <div class="navbar-header">
            <a class="navbar-brand" href="./">School Donations Dashboard</a>
            <button class="intro_button" type="button" autofocus onclick="javascript:introJs().start();">Start Tour!</button>
+           <a class="reset" href="javascript:dc.filterAll();dc.renderAll();" style="">Reset All</a>
        </div>
    </div>
 </div>
@@ -45,7 +46,7 @@
                <div class="col-sm-6">
                    <div class="chart-wrapper" data-step="2" data-intro="The description that you want" style="font-weight: normal" data-position="right">
                        <div class="chart-title">
-                           Resources Type
+                           Donations by Resource Type
                            <a class="reset" href="javascript:resourceTypeChart.filterAll();dc.redrawAll();" style="">reset</a>
                        </div>
                        <div class="chart-stage">
@@ -59,7 +60,7 @@
                <div class="col-sm-6">
                    <div class="chart-wrapper" data-step="3" data-intro="The description that you want" style="font-weight: normal" data-position="right">
                        <div class="chart-title">
-                           Primary Focus Area
+                           Donations by Primary Focus Area
                            <a class="reset" href="javascript:primaryFocusAreaChart.filterAll();dc.redrawAll();" style="">reset</a>
                        </div>
                        <div class="chart-stage">
@@ -73,7 +74,7 @@
                <div class="col-sm-6">
                    <div class="chart-wrapper" data-step="5" data-intro="The description that you want" style="font-weight: normal" data-position="right">
                        <div class="chart-title">
-                           Grade Level
+                           Donations by Grade Level
                            <a class="reset" href="javascript:gradeLevelChart.filterAll();dc.redrawAll();" style="">reset</a>
                        </div>
                        <div class="chart-stage">
@@ -104,7 +105,7 @@
        <div class="col-sm-3">
            <div class="chart-wrapper" data-step="7" data-intro="The description that you want" style="font-weight: normal" data-position="right">
                <div class="chart-title">
-                   Poverty Level
+                   Donations by Poverty Level
                    <a class="reset" href="javascript:povertyLevelChart.filterAll();dc.redrawAll();" style="">reset</a>
                </div>
                <div class="chart-stage">
@@ -118,7 +119,7 @@
        <div class="col-sm-6">
            <div class="chart-wrapper" data-step="8" data-intro="The description that you want" style="font-weight: normal" data-position="right">
                <div class="chart-title">
-                   Donation State
+                   Donations State
                </div>
                <div class="chart-stage">
                    <div id="menu-select"></div>
@@ -164,7 +165,8 @@
     <div class="row">
        <div class="chart-wrapper" data-step="11" data-intro="The description that you want" style="font-weight: normal" data-position="right">
            <div class="chart-title">
-               Map
+               Donations by State
+               <a class="reset" href="javascript:povertyLevelChart.filterAll();dc.redrawAll();" style="">reset</a>
            </div>
            <div class="chart-stage">
                <div id="county-choropleth"></div>
