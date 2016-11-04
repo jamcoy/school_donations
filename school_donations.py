@@ -6,7 +6,7 @@ import json
 
 app = Flask(__name__)
 
-RESULT_LIMIT = 120000
+RESULT_LIMIT = 1200
 RESULT_OFFSET = 0
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
@@ -14,7 +14,7 @@ DBS_NAME = 'donorsUSA'
 COLLECTION_NAME = 'projects'
 FIELDS = {'funding_status': True, 'school_state': True, 'resource_type': True, 'poverty_level': True,
           'date_posted': True, 'primary_focus_area': True, 'grade_level': True, 'total_donations': True,
-          '_id': False}
+          '_id': False, 'school_ncesid': True}
 
 
 @app.route("/")

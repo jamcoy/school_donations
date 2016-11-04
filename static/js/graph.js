@@ -12,7 +12,8 @@ var timeChart,
     gradeLevelChart,
     stateChoropleth,
     selectField,
-    donationValueChart;
+    donationValueChart,
+    schoolsReachedND;
 
 
 queue()
@@ -36,11 +37,8 @@ function makeGraphs(error, projectsJson, mapJson) {
    donorsUSProjects.forEach(function (d) {
        d["date_posted"] = dateFormat.parse(d["date_posted"]);
        d["date_posted"].setDate(1);
-       d["total_donations"] = +d["total_donations"];
-       if (d["total_donations"] <= "0"){
-       }
+       d["total_donations"] = +d["total_donations"]; // convert to number
        d["school_state_full"] = stateFullname[stateAbbreviation.indexOf(d["school_state"])];
-
    });
 
    //Create a Crossfilter instance
@@ -62,27 +60,30 @@ function makeGraphs(error, projectsJson, mapJson) {
    var totalDonationsDim = ndx.dimension(function (d) {
        return d["total_donations"];
    });
- 
    var fundingStatus = ndx.dimension(function (d) {
        return d["funding_status"];
    });
-
     var primaryFocusAreaDim = ndx.dimension(function (d) {
         return d["primary_focus_area"];
     });
-
     var gradeLevelDim = ndx.dimension(function (d) {
         return d["grade_level"];
     });
+    var totalSchoolsDim = ndx.dimension(function (d){
+        return d["school_ncesid"];
+    });
 
-
-   //Calculate metrics
-   var numProjectsByDate = dateDim.group();
+   //Calculate metrics - see https://github.com/square/crossfilter/wiki/API-Reference
+   var numProjectsByDate = dateDim.group();  // group means map-reduce
    var numProjectsByResourceType = resourceTypeDim.group();
    var numProjectsByPovertyLevel = povertyLevelDim.group();
    var numProjectsByFundingStatus = fundingStatus.group();
     var numProjectsByPrimaryFocusArea = primaryFocusAreaDim.group();
     var numProjectsByGradeLevel = gradeLevelDim.group();
+
+    // change this function to show number of independent values
+    var totalSchoolsReached = totalSchoolsDim.group().reduceCount();
+
    var totalDonationsByState = stateDim.group().reduceSum(function (d) {
        return d["total_donations"];
    });
@@ -123,6 +124,7 @@ function makeGraphs(error, projectsJson, mapJson) {
    gradeLevelChart = dc.pieChart("#grade-level-row-chart");
     stateChoropleth = dc.geoChoroplethChart("#county-choropleth");
     donationValueChart = dc.lineChart("#donation-value-line-chart");
+    schoolsReachedND = dc.numberDisplay("#number-schools-nd");
 
    selectField = dc.selectMenu('#menu-select')
        .dimension(stateDim)
@@ -178,6 +180,15 @@ function makeGraphs(error, projectsJson, mapJson) {
        })
        .group(totalDonations)
        .formatNumber(d3.format("$,.0f"))
+   ;
+
+    schoolsReachedND
+       //.formatNumber(d3.format("d"))
+   .valueAccessor(function (d) {
+           return d;
+       })
+       .group(totalSchoolsReached)
+       .formatNumber(d3.format(",.0f"))
    ;
 
    resourceTypeChart
