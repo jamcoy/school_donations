@@ -74,15 +74,14 @@ function makeGraphs(error, projectsJson, mapJson) {
     });
 
    //Calculate metrics - see https://github.com/square/crossfilter/wiki/API-Reference
-   var numProjectsByDate = dateDim.group();  // group means map-reduce
+   var numProjectsByDate = dateDim.group();
    var numProjectsByResourceType = resourceTypeDim.group();
    var numProjectsByPovertyLevel = povertyLevelDim.group();
    var numProjectsByFundingStatus = fundingStatus.group();
     var numProjectsByPrimaryFocusArea = primaryFocusAreaDim.group();
     var numProjectsByGradeLevel = gradeLevelDim.group();
 
-    // change this function to show number of independent values
-    var totalSchoolsReached = totalSchoolsDim.group().reduceCount();
+
 
    var totalDonationsByState = stateDim.group().reduceSum(function (d) {
        return d["total_donations"];
@@ -96,7 +95,9 @@ function makeGraphs(error, projectsJson, mapJson) {
    var totalDonations = ndx.groupAll().reduceSum(function (d) {
        return d["total_donations"];
    });
- 
+
+   var totalSchoolsReached = totalSchoolsDim.group().reduceCount();
+
    var max_state = totalDonationsByState.top(1)[0].value;
  
    //Define values (to be used in charts)
