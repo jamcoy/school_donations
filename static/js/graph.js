@@ -36,8 +36,8 @@ function makeGraphs(error, projectsJson, mapJson) {
    donorsUSProjects.forEach(function (d) {
        d["date_posted"] = dateFormat.parse(d["date_posted"]);
        d["date_posted"].setDate(1);
-       d["total_price_excluding_optional_support"] = Math.round(+d["total_price_excluding_optional_support"]);
-       if (d["total_price_excluding_optional_support"] <= "0"){
+       d["total_donations"] = +d["total_donations"];
+       if (d["total_donations"] <= "0"){
        }
        d["school_state_full"] = stateFullname[stateAbbreviation.indexOf(d["school_state"])];
 
@@ -60,7 +60,7 @@ function makeGraphs(error, projectsJson, mapJson) {
        return d["school_state_full"];
    });
    var totalDonationsDim = ndx.dimension(function (d) {
-       return d["total_price_excluding_optional_support"];
+       return d["total_donations"];
    });
  
    var fundingStatus = ndx.dimension(function (d) {
@@ -84,16 +84,16 @@ function makeGraphs(error, projectsJson, mapJson) {
     var numProjectsByPrimaryFocusArea = primaryFocusAreaDim.group();
     var numProjectsByGradeLevel = gradeLevelDim.group();
    var totalDonationsByState = stateDim.group().reduceSum(function (d) {
-       return d["total_price_excluding_optional_support"];
+       return d["total_donations"];
    });
        var valueDonationsByDate = dateDim.group().reduceSum(function (d) {
-       return d["total_price_excluding_optional_support"];
+       return d["total_donations"];
    });
    var stateGroup = stateDim.group();
 
    var all = ndx.groupAll();
    var totalDonations = ndx.groupAll().reduceSum(function (d) {
-       return d["total_price_excluding_optional_support"];
+       return d["total_donations"];
    });
  
    var max_state = totalDonationsByState.top(1)[0].value;
@@ -168,7 +168,7 @@ function makeGraphs(error, projectsJson, mapJson) {
            return d;
        })
        .group(all)
-        .formatNumber(d3.format(','))
+        .formatNumber(d3.format(",.0f"))
     ;
  
    totalDonationsND
@@ -177,7 +177,7 @@ function makeGraphs(error, projectsJson, mapJson) {
            return d;
        })
        .group(totalDonations)
-       .formatNumber(d3.format("$.3s"))
+       .formatNumber(d3.format("$,.0f"))
    ;
 
    resourceTypeChart
@@ -215,7 +215,8 @@ function makeGraphs(error, projectsJson, mapJson) {
               return 2;
           } else if (d.key == "Grades 9-12") {
               return 3;
-          }
+          } else
+              return 4;
       })
        .label(function (d) {
            if (gradeLevelChart.hasFilter() && !gradeLevelChart.hasFilter(d.key)) {
@@ -274,7 +275,7 @@ function makeGraphs(error, projectsJson, mapJson) {
         //.colors(colorbrewer.YlOrRd[9])
         //.colorDomain([0, maxRisks])
         .title(function (d) {
-            return d.key + "\nDonations: " + (d.value ? d.value : 0);
+            return d.key + "\nProjects: " + (d.value ? d.value : 0);
         })
     ;
 
