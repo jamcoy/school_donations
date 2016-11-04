@@ -36,10 +36,13 @@ function makeGraphs(error, projectsJson, mapJson) {
    donorsUSProjects.forEach(function (d) {
        d["date_posted"] = dateFormat.parse(d["date_posted"]);
        d["date_posted"].setDate(1);
-       d["total_donations"] = +d["total_donations"];
+       d["total_price_excluding_optional_support"] = Math.round(+d["total_price_excluding_optional_support"]);
+       if (d["total_price_excluding_optional_support"] <= "0"){
+       }
        d["school_state_full"] = stateFullname[stateAbbreviation.indexOf(d["school_state"])];
+
    });
- 
+
    //Create a Crossfilter instance
    var ndx = crossfilter(donorsUSProjects);
  
@@ -57,7 +60,7 @@ function makeGraphs(error, projectsJson, mapJson) {
        return d["school_state_full"];
    });
    var totalDonationsDim = ndx.dimension(function (d) {
-       return d["total_donations"];
+       return d["total_price_excluding_optional_support"];
    });
  
    var fundingStatus = ndx.dimension(function (d) {
@@ -81,16 +84,16 @@ function makeGraphs(error, projectsJson, mapJson) {
     var numProjectsByPrimaryFocusArea = primaryFocusAreaDim.group();
     var numProjectsByGradeLevel = gradeLevelDim.group();
    var totalDonationsByState = stateDim.group().reduceSum(function (d) {
-       return d["total_donations"];
+       return d["total_price_excluding_optional_support"];
    });
        var valueDonationsByDate = dateDim.group().reduceSum(function (d) {
-       return d["total_donations"];
+       return d["total_price_excluding_optional_support"];
    });
    var stateGroup = stateDim.group();
 
    var all = ndx.groupAll();
    var totalDonations = ndx.groupAll().reduceSum(function (d) {
-       return d["total_donations"];
+       return d["total_price_excluding_optional_support"];
    });
  
    var max_state = totalDonationsByState.top(1)[0].value;
