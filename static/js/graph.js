@@ -15,6 +15,14 @@ var timeChart,
     donationValueChart,
     schoolsReachedND;
 
+var schools = []; // used by custom filter to count unique schools
+
+dc.renderlet(function(){ // reset on each rendering
+    console.log(schools.length);
+    schools.length = 0;
+    //totalSchoolsDim.filterAll();
+    //totalSchoolsReached = false;
+});
 
 queue()
    .defer(d3.json, "/donorsUS/projects")
@@ -34,12 +42,25 @@ function makeGraphs(error, projectsJson, mapJson) {
    //Clean projectsJson data and add in full state names
    var donorsUSProjects = projectsJson;
    var dateFormat = d3.time.format("%Y-%m-%d %H:%M:%S");
+   var schoolCount = []; //debug stuff
    donorsUSProjects.forEach(function (d) {
        d["date_posted"] = dateFormat.parse(d["date_posted"]);
        d["date_posted"].setDate(1);
        d["total_donations"] = +d["total_donations"]; // convert to number
+       d["school_ncesid"] = +d["school_ncesid"]; // convert to number
+
+
+       if (schoolCount.indexOf(d["school_ncesid"]) < 0) {
+           schoolCount.push(d["school_ncesid"]);
+       }
+
+
+
        d["school_state_full"] = stateFullname[stateAbbreviation.indexOf(d["school_state"])];
    });
+
+
+   console.log("Unique school count:", schoolCount.length);
 
    //Create a Crossfilter instance
    var ndx = crossfilter(donorsUSProjects);
@@ -81,8 +102,6 @@ function makeGraphs(error, projectsJson, mapJson) {
     var numProjectsByPrimaryFocusArea = primaryFocusAreaDim.group();
     var numProjectsByGradeLevel = gradeLevelDim.group();
 
-
-
    var totalDonationsByState = stateDim.group().reduceSum(function (d) {
        return d["total_donations"];
    });
@@ -96,7 +115,17 @@ function makeGraphs(error, projectsJson, mapJson) {
        return d["total_donations"];
    });
 
-   var totalSchoolsReached = totalSchoolsDim.group().reduceCount();
+
+   var totalSchoolsReached = totalSchoolsDim.groupAll().reduceSum(function (d) {
+       totalSchoolsDim.filterAll();
+       if (schools.indexOf(d["school_ncesid"]) < 0 && d["school_ncesid"] != 0) {
+           schools.push(d["school_ncesid"]);
+           return 1;
+       } else {
+           return 0;
+       }
+    });
+
 
    var max_state = totalDonationsByState.top(1)[0].value;
  
@@ -291,6 +320,6 @@ function makeGraphs(error, projectsJson, mapJson) {
         })
     ;
 
- 
    dc.renderAll();
+    totalSchoolsDim.filterAll();
 }
