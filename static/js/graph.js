@@ -177,6 +177,7 @@ function makeGraphs(error, projectsJson, mapJson) {
            return d;
        })
        .group(all)
+        .transitionDuration(1000)
         .formatNumber(d3.format(",.0f"))
     ;
 
@@ -186,7 +187,7 @@ function makeGraphs(error, projectsJson, mapJson) {
            return d;
        })
        .group(totalDonations)
-       .transitionDuration(1500)
+       .transitionDuration(1000)
        .formatNumber(d3.format("$,.0f"))
    ;
 
@@ -196,6 +197,7 @@ function makeGraphs(error, projectsJson, mapJson) {
            return d;
        })
        .group(totalSchoolsReached)
+        .transitionDuration(1000)
        .formatNumber(d3.format(",.0f"))
    ;
 
