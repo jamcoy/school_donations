@@ -186,6 +186,7 @@ function makeGraphs(error, projectsJson, mapJson) {
            return d;
        })
        .group(totalDonations)
+       .transitionDuration(1500)
        .formatNumber(d3.format("$,.0f"))
    ;
 
@@ -300,8 +301,12 @@ function makeGraphs(error, projectsJson, mapJson) {
    dc.renderAll();
 
     stateChoropleth.on('filtered', function() {
-        // set page title filter here
+        if (stateChoropleth.filters().length == 0){
+            d3.select("#stateFilter").text("All states");
+        } else if (stateChoropleth.filters().length <= 4){
+            d3.select("#stateFilter").text(stateChoropleth.filters().join(', '));
+        } else {
+            d3.select("#stateFilter").text(stateChoropleth.filters().length + " states");
+        }
     });
 }
-
-//+ stateChoropleth.filters();
