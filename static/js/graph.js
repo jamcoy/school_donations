@@ -129,7 +129,7 @@ function makeGraphs(error, projectsJson, mapJson) {
    fundingStatusChart = dc.pieChart("#funding-chart");
    primaryFocusAreaChart = dc.rowChart("#primary-focus-area-row-chart");
    gradeLevelChart = dc.pieChart("#grade-level-row-chart");
-    stateChoropleth = dc.geoChoroplethChart("#county-choropleth");
+    stateChoropleth = dc.geoChoroplethChart("#state-choropleth");
     donationValueChart = dc.lineChart("#donation-value-line-chart");
     schoolsReachedND = dc.numberDisplay("#number-schools-nd");
 
