@@ -298,5 +298,4 @@ function makeGraphs(error, projectsJson, mapJson) {
     ;
 
    dc.renderAll();
-    totalSchoolsDim.filterAll();
 }
