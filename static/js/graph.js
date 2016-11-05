@@ -285,7 +285,7 @@ function makeGraphs(error, projectsJson, mapJson) {
         .width(830)
         .height(600)
         .dimension(stateDim)
-        .group(stateGroup)
+        .group(totalDonationsByState)
         .overlayGeoJson(mapJson.features, "school_state_full", function (d) {
             return d.properties.NAME;
         })
@@ -293,7 +293,7 @@ function makeGraphs(error, projectsJson, mapJson) {
         //.colors(colorbrewer.YlOrRd[9])
         //.colorDomain([0, maxRisks])
         .title(function (d) {
-            return d.key + "\nProjects: " + (d.value ? d.value : 0);
+            return d.key + "\nMoney raised: $" + (d.value ? d.value : 0);
         })
     ;
 
