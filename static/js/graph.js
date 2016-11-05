@@ -115,7 +115,7 @@ function makeGraphs(error, projectsJson, mapJson) {
 
     var mapProjection = d3.geo.albersUsa()
         .scale(1050)
-        .translate([(width / 2) - 20, (height / 2) + 30]); // 30 leave a little space for a legend
+        .translate([(width / 2) - 20, (height / 2) - 30]); // 30 leaves a little space for a legend
 
     // keep the date charts nicely aligned
     var dateDimChartMargins = {top: 30, right: 50, bottom: 25, left: 60};
@@ -290,8 +290,8 @@ function makeGraphs(error, projectsJson, mapJson) {
             return d.properties.NAME;
         })
         .projection(mapProjection)
-        //.colors(colorbrewer.YlOrRd[9])
-        //.colorDomain([0, maxRisks])
+        .colors(d3.scale.quantize().range(['#f46d43','#fdae61','#fee090','#ffffbf','#e0f3f8','#abd9e9','#74add1','#4575b4']))
+        .colorDomain([0, max_state / 8])
         .title(function (d) {
             return d.key + "\nMoney raised: $" + (d.value ? d.value : 0);
         })
