@@ -111,11 +111,11 @@ function makeGraphs(error, projectsJson, mapJson) {
    var maxDate = dateDim.top(1)[0]["date_posted"];
 
     var width = 830,
-        height = 600;
+        height = 540;
 
     var mapProjection = d3.geo.albersUsa()
         .scale(1050)
-        .translate([(width / 2) - 20, height / 2]);
+        .translate([(width / 2) - 20, (height / 2) + 30]); // 30 leave a little space for a legend
 
     // keep the date charts nicely aligned
     var dateDimChartMargins = {top: 30, right: 50, bottom: 25, left: 60};
@@ -141,7 +141,7 @@ function makeGraphs(error, projectsJson, mapJson) {
     donationValueChart
         .renderArea(true)
         .width(830)
-        .height(273)
+        .height(380)
         .transitionDuration(500)
         .margins(dateDimChartMargins)
         .dimension(dateDim)
@@ -159,7 +159,7 @@ function makeGraphs(error, projectsJson, mapJson) {
 
      timeChart
        .width(830)
-       .height(273)
+       .height(234)
        .margins(dateDimChartMargins)
        .dimension(dateDim)
        .group(numProjectsByDate)
@@ -283,7 +283,7 @@ function makeGraphs(error, projectsJson, mapJson) {
 
     stateChoropleth
         .width(830)
-        .height(600)
+        .height(540)
         .dimension(stateDim)
         .group(totalDonationsByState)
         .overlayGeoJson(mapJson.features, "school_state_full", function (d) {
