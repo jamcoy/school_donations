@@ -298,4 +298,10 @@ function makeGraphs(error, projectsJson, mapJson) {
     ;
 
    dc.renderAll();
+
+    stateChoropleth.on('filtered', function() {
+        // set page title filter here
+    });
 }
+
+//+ stateChoropleth.filters();
