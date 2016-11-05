@@ -3,11 +3,15 @@ body{
 }
 
 #number-projects-nd {
-   font-size: 60px;
+   font-size: 56px;
 }
 
 #total-donations-nd {
-   font-size: 60px;
+   font-size: 56px;
+}
+
+#number-schools-nd {
+   font-size: 56px;
 }
 
 .dc-chart g.row text {
@@ -26,31 +30,6 @@ body{
     cursor: pointer;
 }
 
-#total-projects {
-   background: #33CC99;
-   width: 200px;
-   position: relative;
-   height: 60px;
-   font-size: 29px;
-   color: white;
-   vertical-align: middle;
-   text-align: center;
-   padding-top: 12px;
-   padding-bottom: 0;
-}
-
-#net-donations {
-   background: #33CC99;
-   width: 200px;
-   position: relative;
-   height: 60px;
-   font-size: 29px;
-   color: white;
-   vertical-align: middle;
-   text-align: center;
-   padding-top: 12px;
-   padding-bottom: 0;
-}
 
 .dc-select-menu {
    background: #33CC99;
