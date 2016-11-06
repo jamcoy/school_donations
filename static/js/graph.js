@@ -120,6 +120,9 @@ function makeGraphs(error, projectsJson, mapJson) {
     // keep the date charts nicely aligned
     var dateDimChartMargins = {top: 30, right: 50, bottom: 25, left: 60};
 
+    var formatCommas = d3.format(",.0f");
+    var formatDollarsCommas = d3.format("$,.0f")
+
    //Charts
    timeChart = dc.barChart("#time-chart");
    resourceTypeChart = dc.rowChart("#resource-type-row-chart");
@@ -178,7 +181,7 @@ function makeGraphs(error, projectsJson, mapJson) {
        })
        .group(all)
         .transitionDuration(1000)
-        .formatNumber(d3.format(",.0f"))
+        .formatNumber(formatCommas)
     ;
 
    totalDonationsND
@@ -188,7 +191,7 @@ function makeGraphs(error, projectsJson, mapJson) {
        })
        .group(totalDonations)
        .transitionDuration(1000)
-       .formatNumber(d3.format("$,.0f"))
+       .formatNumber(formatDollarsCommas)
    ;
 
     schoolsReachedND
@@ -198,7 +201,7 @@ function makeGraphs(error, projectsJson, mapJson) {
        })
        .group(totalSchoolsReached)
         .transitionDuration(1000)
-       .formatNumber(d3.format(",.0f"))
+       .formatNumber(formatCommas)
    ;
 
    resourceTypeChart
@@ -296,7 +299,7 @@ function makeGraphs(error, projectsJson, mapJson) {
         .colors(d3.scale.quantize().range(['#f46d43','#fdae61','#fee090','#ffffbf','#e0f3f8','#abd9e9','#74add1','#4575b4']))
         .colorDomain([0, max_state / 8])
         .title(function (d) {
-            return d.key + "\nMoney raised: $" + (d.value ? d.value : 0);
+            return d.key + "\nMoney raised: " + formatDollarsCommas((d.value ? d.value : 0));
         })
     ;
 
