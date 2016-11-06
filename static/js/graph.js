@@ -144,7 +144,7 @@ function makeGraphs(error, projectsJson, mapJson) {
     donationValueChart
         .renderArea(true)
         .width(800)
-        .height(380)
+        .height(389)
         .title(function (d) { return formatDate(d.key) + ": " + formatCommas(d.value); })
         .transitionDuration(500)
         .margins(dateDimChartMargins)
