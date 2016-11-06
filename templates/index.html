@@ -26,13 +26,28 @@
 
 <div  id="outer" class="container-fluid">
 
+           <div class="row">
+          <!-- menu select -->
+           <div class="col-sm-12 hidden-sm hidden-md hidden-lg">
+               <div class="chart-wrapper" data-step="8" data-intro="The description that you want" style="font-weight: normal" data-position="right">
+                   <div class="chart-title">
+                       Projects State (To be removed)
+                   </div>
+                   <div class="chart-stage">
+                       <div id="menu-select"></div>
+                   </div>
+               </div>
+           </div>
+           <!-- menu select -->
+       </div>
+
    <div class="row">
 
    <div class="col-lg-8">
         <div class="row">
 
            <!-- Metric 1 -->
-           <div class="col-sm-3">
+           <div class="col-sm-3" id="projects-container">
                <div class="chart-wrapper" data-step="9" data-intro="The description that you want" style="font-weight: normal" data-position="right">
                    <div class="chart-title">
                        Number of Projects
@@ -58,7 +73,7 @@
            <!-- Metric 2 -->
 
            <!-- Metric 3 -->
-           <div class="col-sm-3">
+           <div class="col-sm-3" id="schools-container">
                <div class="chart-wrapper" data-step="15" data-intro="The description that you want" style="font-weight: normal" data-position="right">
                    <div class="chart-title">
                        Schools Reached
@@ -76,7 +91,7 @@
        <div class="row">
 
             <!-- Choropleth -->
-            <div class="col-lg-12">
+            <div class="col-lg-12 hidden-xs">
                <div class="chart-wrapper" data-step="11" data-intro="The description that you want" style="font-weight: normal" data-position="right">
                    <div class="chart-title">
                        Distribution by State (colour: total US dollars raised)

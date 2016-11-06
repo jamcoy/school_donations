@@ -10,6 +10,14 @@ body{
    font-size: 50px;
 }
 
+#projects-container {
+   padding-right: 0px;
+}
+
+#schools-container {
+   padding-left: 0px;
+}
+
 #number-schools-nd {
    font-size: 50px;
 }
