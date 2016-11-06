@@ -109,7 +109,7 @@ function makeGraphs(error, projectsJson, mapJson) {
    var minDate = dateDim.bottom(1)[0]["date_posted"];
    var maxDate = dateDim.top(1)[0]["date_posted"];
 
-    var width = 830,
+    var width = 800,
         height = 540;
 
     var mapProjection = d3.geo.albersUsa()
@@ -143,7 +143,7 @@ function makeGraphs(error, projectsJson, mapJson) {
 
     donationValueChart
         .renderArea(true)
-        .width(815)
+        .width(800)
         .height(380)
         .title(function (d) { return formatDate(d.key) + ": " + formatCommas(d.value); })
         .transitionDuration(500)
@@ -162,7 +162,7 @@ function makeGraphs(error, projectsJson, mapJson) {
     ;
 
      timeChart
-       .width(815)
+       .width(800)
        .height(234)
        .margins(dateDimChartMargins)
        .dimension(dateDim)
@@ -206,7 +206,7 @@ function makeGraphs(error, projectsJson, mapJson) {
    ;
 
    resourceTypeChart
-       .width(300)
+       .width(380)
        .height(234)
        .title(function (d) { return d.key + ": " + formatCommas(d.value); })
        .dimension(resourceTypeDim)
@@ -216,7 +216,7 @@ function makeGraphs(error, projectsJson, mapJson) {
    ;
 
    primaryFocusAreaChart
-       .width(300)
+       .width(380)
        .height(234)
       .title(function (d) { return d.key + ": " + formatCommas(d.value); })
        .dimension(primaryFocusAreaDim)
@@ -261,7 +261,7 @@ function makeGraphs(error, projectsJson, mapJson) {
    ;
  
    povertyLevelChart
-       .width(300)
+       .width(380)
        .height(234)
        .title(function (d) { return d.key + ": " + formatCommas(d.value); })
        .dimension(povertyLevelDim)
@@ -295,7 +295,7 @@ function makeGraphs(error, projectsJson, mapJson) {
    ;
 
     stateChoropleth
-        .width(815)
+        .width(800)
         .height(540)
         .dimension(stateDim)
         .group(totalDonationsByState)
