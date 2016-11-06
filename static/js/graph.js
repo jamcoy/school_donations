@@ -228,6 +228,7 @@ function makeGraphs(error, projectsJson, mapJson) {
 
    gradeLevelChart
         .height(234)
+       .width(380)
        .radius(90)
        .title(function (d) { return d.key + ": " + formatCommas(d.value); })
        .transitionDuration(1000)
@@ -283,6 +284,7 @@ function makeGraphs(error, projectsJson, mapJson) {
  
    fundingStatusChart
        .height(234)
+       .width(380)
        .radius(90)
        .title(function (d) { return d.key + ": " + formatCommas(d.value); })
        .innerRadius(40)
