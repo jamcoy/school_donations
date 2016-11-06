@@ -2,6 +2,11 @@ body{
    background-color: white;
 }
 
+.container-fluid {
+   margin-left: 10px;
+   margin-right: 10px;
+}
+
 #number-projects-nd {
    font-size: 56px;
 }
@@ -30,7 +35,6 @@ body{
     cursor: pointer;
 }
 
-
 .dc-select-menu {
    background: #33CC99;
    width: 80%;
@@ -46,14 +50,7 @@ body{
 }
 
 .chart-wrapper{
-
 }
-
-.row{
-   margin-left: -10px;
-}
-
-
 
 .reset{
    float: right;

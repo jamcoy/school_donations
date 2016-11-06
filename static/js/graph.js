@@ -143,7 +143,7 @@ function makeGraphs(error, projectsJson, mapJson) {
 
     donationValueChart
         .renderArea(true)
-        .width(830)
+        .width(815)
         .height(380)
         .title(function (d) { return formatDate(d.key) + ": " + formatCommas(d.value); })
         .transitionDuration(500)
@@ -162,7 +162,7 @@ function makeGraphs(error, projectsJson, mapJson) {
     ;
 
      timeChart
-       .width(830)
+       .width(815)
        .height(234)
        .margins(dateDimChartMargins)
        .dimension(dateDim)
@@ -295,7 +295,7 @@ function makeGraphs(error, projectsJson, mapJson) {
    ;
 
     stateChoropleth
-        .width(830)
+        .width(815)
         .height(540)
         .dimension(stateDim)
         .group(totalDonationsByState)
