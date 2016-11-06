@@ -2,21 +2,16 @@ body{
    background-color: white;
 }
 
-.container-fluid {
-   margin-left: 10px;
-   margin-right: 10px;
-}
-
 #number-projects-nd {
-   font-size: 56px;
+   font-size: 50px;
 }
 
 #total-donations-nd {
-   font-size: 56px;
+   font-size: 50px;
 }
 
 #number-schools-nd {
-   font-size: 56px;
+   font-size: 50px;
 }
 
 .dc-chart g.row text {
@@ -50,6 +45,11 @@ body{
 }
 
 .chart-wrapper{
+}
+
+.row{
+   margin-left: -12px;
+   margin-right: -12px;
 }
 
 .reset{
