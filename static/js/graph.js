@@ -33,7 +33,6 @@ function makeGraphs(error, projectsJson, mapJson) {
    //Clean projectsJson data and add in full state names
    var donorsUSProjects = projectsJson;
    var dateFormat = d3.time.format("%Y-%m-%d %H:%M:%S");
-   var schoolCount = []; //debug stuff
    donorsUSProjects.forEach(function (d) {
        d["date_posted"] = dateFormat.parse(d["date_posted"]);
        d["date_posted"].setDate(1);
@@ -121,7 +120,8 @@ function makeGraphs(error, projectsJson, mapJson) {
     var dateDimChartMargins = {top: 30, right: 50, bottom: 25, left: 60};
 
     var formatCommas = d3.format(",.0f");
-    var formatDollarsCommas = d3.format("$,.0f")
+    var formatDollarsCommas = d3.format("$,.0f");
+    var formatDate = d3.time.format("%B %Y");
 
    //Charts
    timeChart = dc.barChart("#time-chart");
@@ -145,6 +145,7 @@ function makeGraphs(error, projectsJson, mapJson) {
         .renderArea(true)
         .width(830)
         .height(380)
+        .title(function (d) { return formatDate(d.key) + ": " + formatCommas(d.value); })
         .transitionDuration(500)
         .margins(dateDimChartMargins)
         .dimension(dateDim)
@@ -207,6 +208,7 @@ function makeGraphs(error, projectsJson, mapJson) {
    resourceTypeChart
        .width(300)
        .height(234)
+       .title(function (d) { return d.key + ": " + formatCommas(d.value); })
        .dimension(resourceTypeDim)
        .group(numProjectsByResourceType)
        .elasticX(true)
@@ -216,15 +218,18 @@ function makeGraphs(error, projectsJson, mapJson) {
    primaryFocusAreaChart
        .width(300)
        .height(234)
+      .title(function (d) { return d.key + ": " + formatCommas(d.value); })
        .dimension(primaryFocusAreaDim)
        .group(numProjectsByPrimaryFocusArea)
        .elasticX(true)
        .xAxis().ticks(4)
+
    ;
 
    gradeLevelChart
         .height(234)
        .radius(90)
+       .title(function (d) { return d.key + ": " + formatCommas(d.value); })
        .transitionDuration(1000)
        .dimension(gradeLevelDim)
        .innerRadius(40)
@@ -258,6 +263,7 @@ function makeGraphs(error, projectsJson, mapJson) {
    povertyLevelChart
        .width(300)
        .height(234)
+       .title(function (d) { return d.key + ": " + formatCommas(d.value); })
        .dimension(povertyLevelDim)
        .group(numProjectsByPovertyLevel)
        .elasticX(true)
@@ -278,6 +284,7 @@ function makeGraphs(error, projectsJson, mapJson) {
    fundingStatusChart
        .height(234)
        .radius(90)
+       .title(function (d) { return d.key + ": " + formatCommas(d.value); })
        .innerRadius(40)
        .transitionDuration(1000)
        .dimension(fundingStatus)
