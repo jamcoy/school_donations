@@ -276,7 +276,7 @@ function makeGraphs(error, projectsJson, mapJson) {
           }
       })
       .label(function (d) {
-           if (gradeLevelChart.hasFilter() && !gradeLevelChart.hasFilter(d.key)) {
+           if (povertyLevelChart.hasFilter() && !povertyLevelChart.hasFilter(d.key)) {
                 return '0%';
            }
            if (all.value()) {
