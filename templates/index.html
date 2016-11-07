@@ -3,203 +3,204 @@
 
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-
     <title>School Donations Dashboard</title>
-   <link rel="stylesheet" href="../static/lib/css/bootstrap.min.css">
-   <link rel="stylesheet" href="../static/lib/css/keen-dashboards.css">
-   <link rel="stylesheet" href="../static/lib/css/dc.css">
-   <link rel="stylesheet" href="../static/css/custom.css">
-    <link rel="stylesheet" href="../static/lib/css/introjs.css" />
+    <link rel="stylesheet" href="../static/lib/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/lib/css/keen-dashboards.css">
+    <link rel="stylesheet" href="../static/lib/css/dc.css">
+    <link rel="stylesheet" href="../static/css/custom.css">
+    <link rel="stylesheet" href="../static/lib/css/introjs.css"/>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto">
- </head>
+</head>
+
 <body class="application">
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-   <div class="container">
-       <div class="navbar-header">
-           <a class="navbar-brand" href="./">School Donations Dashboard | Showing: <span id="stateFilter">All states</span></a>
-           <button class="intro_button" type="button" autofocus onclick="javascript:startGuide();">Start Tour!</button>
-            <a  id="tourStep0" class="reset" href="javascript:dc.filterAll();dc.renderAll();">Reset All</a>
-       </div>
-   </div>
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="./">School Donations Dashboard | Showing: <span
+                    id="stateFilter">All states</span></a>
+            <button class="intro_button" type="button" autofocus onclick="javascript:startGuide();">Start Tour!</button>
+            <a id="tourStep0" class="reset" href="javascript:dc.filterAll();dc.renderAll();">Reset All</a>
+        </div>
+    </div>
 </div>
 
 <div id="loading-data">
     <h1>Loading data...</h1>
 </div>
 
-<div  id="outer" class="container">
+<div id="outer" class="container">
 
-           <div class="row">
-          <!-- menu select -->
-           <div class="col-sm-12 hidden-sm hidden-md hidden-lg">
-               <div class="chart-wrapper" id="tourStep1">
-                   <div class="chart-title">
-                       Projects State (An interactive map is available on larger screens)
-                   </div>
-                   <div class="chart-stage">
-                       <div id="menu-select"></div>
-                   </div>
-               </div>
-           </div>
-           <!-- menu select -->
-       </div>
-
-   <div class="row">
-
-   <div class="col-lg-8">
-        <div class="row" id="tourStep2">
-
-           <!-- Metric 1 -->
-           <div class="col-sm-3" id="projects-container">
-               <div class="chart-wrapper">
-                   <div class="chart-title">
-                       Number of Projects
-                   </div>
-                   <div class="chart-stage">
-                       <div id="number-projects-nd"></div>
-                   </div>
-               </div>
-           </div>
-           <!-- Metric 1 -->
-
-           <!-- Metric 2 -->
-           <div class="col-sm-6">
-               <div class="chart-wrapper">
-                   <div class="chart-title">
-                       Money Raised (USD)
-                   </div>
-                   <div class="chart-stage">
-                       <div id="total-donations-nd"></div>
-                   </div>
-               </div>
-           </div>
-           <!-- Metric 2 -->
-
-           <!-- Metric 3 -->
-           <div class="col-sm-3" id="schools-container">
-               <div class="chart-wrapper">
-                   <div class="chart-title">
-                       Schools Reached
-                   </div>
-                   <div class="chart-stage">
-                       <div id="number-schools-nd"></div>
-                   </div>
-               </div>
-           </div>
-           <!-- Metric 3 -->
-
-
-        </div>
-
-       <div class="row">
-
-            <!-- Choropleth -->
-            <div class="col-lg-12 hidden-xs">
-               <div class="chart-wrapper" id="tourStep3">
-                   <div class="chart-title">
-                       Distribution by State (colour: total US dollars raised)
-                       <a class="reset" href="javascript:stateChoropleth.filterAll();dc.redrawAll();">reset</a>
-                   </div>
-                   <div class="chart-stage">
-                       <div id="state-choropleth"></div>
-                   </div>
-               </div>
+    <div class="row">
+        <!-- menu select -->
+        <div class="col-sm-12 hidden-sm hidden-md hidden-lg">
+            <div class="chart-wrapper" id="tourStep1">
+                <div class="chart-title">
+                    Projects State (An interactive map is available on larger screens)
+                </div>
+                <div class="chart-stage">
+                    <div id="menu-select"></div>
+                </div>
             </div>
-            <!-- Choropleth -->
-       </div>
-
-       <div class="row">
-       <!-- Combined donation / projects by time charts -->
-           <div class="col-lg-12">
-               <div class="chart-wrapper" id="tourStep4">
-                   <div class="chart-title">
-                       Donations (USD) and Projects by Date
-                       <a class="reset" href="javascript:timeSelectChart.filterAll();dc.redrawAll();">reset</a>
-                   </div>
-                   <div class="chart-stage">
-                       <div id="donation-value-line-chart"></div>
-                   </div>
-                  <div class="chart-stage">
-                       <div id="time-select-chart"></div>
-                    </div>
-               </div>
-           </div>
-       <!-- Combined donation / projects by time charts -->
-           </div>
-
-
+        </div>
+        <!-- menu select -->
     </div>
 
+    <div class="row">
 
-       <div class="col-lg-4">
+        <div class="col-lg-8">
+            <div class="row" id="tourStep2">
 
-           <div class="row">
-
-               <!-- Resources -->
-                <div class="col-sm-6 col-lg-12">
-                   <div class="chart-wrapper" id="tourStep5">
-                       <div class="chart-title">
-                           Projects by Resource Type
-                           <a class="reset" href="javascript:resourceTypeChart.filterAll();dc.redrawAll();">reset</a>
-                       </div>
-                       <div class="chart-stage">
-                           <div id="resource-type-row-chart"></div>
-                       </div>
-                   </div>
+                <!-- Metric 1 -->
+                <div class="col-sm-3" id="projects-container">
+                    <div class="chart-wrapper">
+                        <div class="chart-title">
+                            Number of Projects
+                        </div>
+                        <div class="chart-stage">
+                            <div id="number-projects-nd"></div>
+                        </div>
+                    </div>
                 </div>
-               <!-- Resources -->
+                <!-- Metric 1 -->
 
-              <!-- Primary focus area -->
-                <div class="col-sm-6 col-lg-12">
-                   <div class="chart-wrapper"  id="tourStep6">
-                       <div class="chart-title">
-                           Projects by Primary Focus Area
-                           <a class="reset" href="javascript:primaryFocusAreaChart.filterAll();dc.redrawAll();">reset</a>
-                       </div>
-                       <div class="chart-stage">
-                           <div id="primary-focus-area-row-chart"></div>
-                       </div>
-                   </div>
+                <!-- Metric 2 -->
+                <div class="col-sm-6">
+                    <div class="chart-wrapper">
+                        <div class="chart-title">
+                            Money Raised (USD)
+                        </div>
+                        <div class="chart-stage">
+                            <div id="total-donations-nd"></div>
+                        </div>
+                    </div>
                 </div>
-               <!-- Primary focus area -->
+                <!-- Metric 2 -->
 
-                 <!-- Poverty -->
-                <div class="col-sm-6 col-lg-12">
-                   <div class="chart-wrapper"  id="tourStep7">
-                       <div class="chart-title">
-                           Projects by Poverty Level
-                           <a class="reset" href="javascript:povertyLevelChart.filterAll();dc.redrawAll();">reset</a>
-                       </div>
-                       <div class="chart-stage">
-                           <div id="poverty-level-chart"></div>
-                       </div>
-                   </div>
+                <!-- Metric 3 -->
+                <div class="col-sm-3" id="schools-container">
+                    <div class="chart-wrapper">
+                        <div class="chart-title">
+                            Schools Reached
+                        </div>
+                        <div class="chart-stage">
+                            <div id="number-schools-nd"></div>
+                        </div>
+                    </div>
                 </div>
-               <!-- Poverty -->
+                <!-- Metric 3 -->
 
-              <!-- Grade level -->
-                <div class="col-sm-6 col-lg-12">
-                   <div class="chart-wrapper"  id="tourStep8">
-                       <div class="chart-title">
-                           Projects by Grade Level
-                           <a class="reset" href="javascript:gradeLevelChart.filterAll();dc.redrawAll();">reset</a>
-                       </div>
-                       <div class="chart-stage">
-                           <div id="grade-level-row-chart"></div>
-                       </div>
-                   </div>
+
+            </div>
+
+            <div class="row">
+                <!-- Choropleth -->
+                <div class="col-lg-12 hidden-xs">
+                    <div class="chart-wrapper" id="tourStep3">
+                        <div class="chart-title">
+                            Distribution by State (colour: total US dollars raised)
+                            <a class="reset" href="javascript:stateChoropleth.filterAll();dc.redrawAll();">reset</a>
+                        </div>
+                        <div class="chart-stage">
+                            <div id="state-choropleth"></div>
+                        </div>
+                    </div>
                 </div>
-               <!-- Grade level -->
+                <!-- Choropleth -->
+            </div>
+
+            <div class="row">
+                <!-- Combined donation / projects by time charts -->
+                <div class="col-lg-12">
+                    <div class="chart-wrapper" id="tourStep4">
+                        <div class="chart-title">
+                            Donations (USD) and Projects by Date
+                            <a class="reset" href="javascript:timeSelectChart.filterAll();dc.redrawAll();">reset</a>
+                        </div>
+                        <div class="chart-stage">
+                            <div id="donation-value-line-chart"></div>
+                        </div>
+                        <div class="chart-stage">
+                            <div id="time-select-chart"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Combined donation / projects by time charts -->
+            </div>
 
         </div>
 
+        <div class="col-lg-4">
+
+            <div class="row">
+
+                <!-- Resources -->
+                <div class="col-sm-6 col-lg-12">
+                    <div class="chart-wrapper" id="tourStep5">
+                        <div class="chart-title">
+                            Projects by Resource Type
+                            <a class="reset" href="javascript:resourceTypeChart.filterAll();dc.redrawAll();">reset</a>
+                        </div>
+                        <div class="chart-stage">
+                            <div id="resource-type-row-chart"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Resources -->
+
+                <!-- Primary focus area -->
+                <div class="col-sm-6 col-lg-12">
+                    <div class="chart-wrapper" id="tourStep6">
+                        <div class="chart-title">
+                            Projects by Primary Focus Area
+                            <a class="reset"
+                               href="javascript:primaryFocusAreaChart.filterAll();dc.redrawAll();">reset</a>
+                        </div>
+                        <div class="chart-stage">
+                            <div id="primary-focus-area-row-chart"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Primary focus area -->
+
+                <!-- Poverty -->
+                <div class="col-sm-6 col-lg-12">
+                    <div class="chart-wrapper" id="tourStep7">
+                        <div class="chart-title">
+                            Projects by Poverty Level
+                            <a class="reset" href="javascript:povertyLevelChart.filterAll();dc.redrawAll();">reset</a>
+                        </div>
+                        <div class="chart-stage">
+                            <div id="poverty-level-chart"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Poverty -->
+
+                <!-- Grade level -->
+                <div class="col-sm-6 col-lg-12">
+                    <div class="chart-wrapper" id="tourStep8">
+                        <div class="chart-title">
+                            Projects by Grade Level
+                            <a class="reset" href="javascript:gradeLevelChart.filterAll();dc.redrawAll();">reset</a>
+                        </div>
+                        <div class="chart-stage">
+                            <div id="grade-level-row-chart"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Grade level -->
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <hr> <!-- hr - horizontal rule - defines a thematic break -->
+        <p class="small text-muted">Data visualisation by jamcoy using DC.js and crossfilter</p>
     </div>
 
 </div>
-
-<hr> <!-- hr - horizontal rule - defines a thematic break -->
-<p class="small text-muted">Data visualisation by jamcoy using DC.js and crossfilter</p>
 
 <script src="../static/lib/js/jquery.min.js"></script>
 <script src="../static/lib/js/bootstrap.min.js"></script>

@@ -43,7 +43,8 @@ function startGuide() {
                 element: "#tourStep8",
                 intro: "<b>Introduction</b><br/>This pie chart shows the donation distribution by student grade level."
             }
-        ]};
+        ]
+    };
 
     // skip steps that are hidden due to media queries
     if (matchMedia) {
