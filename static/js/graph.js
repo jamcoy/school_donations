@@ -223,12 +223,12 @@ function makeGraphs(error, projectsJson, mapJson) {
    gradeLevelChart
         .height(234)
        .width(380)
-       .radius(90)
+       .radius(105)
        .title(function (d) { return d.key + ": " + formatCommas(d.value); })
        .transitionDuration(1000)
        .dimension(gradeLevelDim)
        .innerRadius(40)
-       .cx(220)
+       .cx(230)
        .cy(117)
        .ordering(function(d) {
           if (d.key == "Grades PreK-2") {
@@ -258,7 +258,7 @@ function makeGraphs(error, projectsJson, mapJson) {
    povertyLevelChart
        .height(234)
        .width(380)
-       .radius(90)
+       .radius(105)
        .title(function (d) { return d.key + ": " + formatCommas(d.value); })
       .innerRadius(40)
        .transitionDuration(1000)
@@ -284,7 +284,7 @@ function makeGraphs(error, projectsJson, mapJson) {
            }
            return label;
        })
-      .cx(220)
+      .cx(230)
        .cy(117)
            .legend(dc.legend().x(20).y(10).itemHeight(13).gap(5))
    ;
