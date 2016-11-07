@@ -57,12 +57,9 @@ function makeGraphs(error, projectsJson, mapJson) {
    var stateDim = ndx.dimension(function (d) {
        return d["school_state_full"];
    });
-   var totalDonationsDim = ndx.dimension(function (d) {
+   /*var totalDonationsDim = ndx.dimension(function (d) {
        return d["total_donations"];
-   });
-   var fundingStatus = ndx.dimension(function (d) {
-       return d["funding_status"];
-   });
+   });*/
     var primaryFocusAreaDim = ndx.dimension(function (d) {
         return d["primary_focus_area"];
     });
@@ -77,7 +74,6 @@ function makeGraphs(error, projectsJson, mapJson) {
    var numProjectsByDate = dateDim.group();
    var numProjectsByResourceType = resourceTypeDim.group();
    var numProjectsByPovertyLevel = povertyLevelDim.group();
-   var numProjectsByFundingStatus = fundingStatus.group();
     var numProjectsByPrimaryFocusArea = primaryFocusAreaDim.group();
     var numProjectsByGradeLevel = gradeLevelDim.group();
 
@@ -126,10 +122,9 @@ function makeGraphs(error, projectsJson, mapJson) {
    //Charts
    timeChart = dc.barChart("#time-chart");
    resourceTypeChart = dc.rowChart("#resource-type-row-chart");
-   povertyLevelChart = dc.rowChart("#poverty-level-row-chart");
+   povertyLevelChart = dc.pieChart("#poverty-level-chart");
    numberProjectsND = dc.numberDisplay("#number-projects-nd");
    totalDonationsND = dc.numberDisplay("#total-donations-nd");
-   fundingStatusChart = dc.pieChart("#funding-chart");
    primaryFocusAreaChart = dc.rowChart("#primary-focus-area-row-chart");
    gradeLevelChart = dc.pieChart("#grade-level-row-chart");
     stateChoropleth = dc.geoChoroplethChart("#state-choropleth");
@@ -262,13 +257,15 @@ function makeGraphs(error, projectsJson, mapJson) {
    ;
  
    povertyLevelChart
-       .width(380)
        .height(234)
+       .width(380)
+       .radius(90)
        .title(function (d) { return d.key + ": " + formatCommas(d.value); })
+      .innerRadius(40)
+       .transitionDuration(1000)
        .dimension(povertyLevelDim)
        .group(numProjectsByPovertyLevel)
-       .elasticX(true)
-      .ordering(function(d) {
+       .ordering(function(d) {
           if (d.key == "highest poverty") {
               return 0;
           } else if (d.key == "high poverty") {
@@ -279,21 +276,18 @@ function makeGraphs(error, projectsJson, mapJson) {
               return 3;
           }
       })
-       .xAxis().ticks(4)
-   ;
- 
-   fundingStatusChart
-       .height(234)
-       .width(380)
-       .radius(90)
-       .title(function (d) { return d.key + ": " + formatCommas(d.value); })
-       .innerRadius(40)
-       .transitionDuration(1000)
-       .dimension(fundingStatus)
+      .label(function (d) {
+           if (gradeLevelChart.hasFilter() && !gradeLevelChart.hasFilter(d.key)) {
+                return '0%';
+           }
+           if (all.value()) {
+               var label = Math.floor(d.value / all.value() * 100) + '%';
+           }
+           return label;
+       })
       .cx(220)
        .cy(117)
-       .group(numProjectsByFundingStatus)
-        .legend(dc.legend().x(20).y(10).itemHeight(13).gap(5))
+           .legend(dc.legend().x(20).y(10).itemHeight(13).gap(5))
    ;
 
     stateChoropleth
