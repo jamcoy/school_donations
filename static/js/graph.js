@@ -138,7 +138,7 @@ function makeGraphs(error, projectsJson, mapJson) {
     donationValueChart
         .renderArea(true)
         .width(800)
-        .height(284)
+        .height(283)
         .title(function (d) { return formatDate(d.key) + ": " + formatDollarsCommas(d.value); })
         .transitionDuration(1000)
         .margins(dateDimChartMargins)
@@ -306,6 +306,8 @@ function makeGraphs(error, projectsJson, mapJson) {
     ;
 
    dc.renderAll();
+
+    d3.select("#loading-data").attr("hidden", "");
 
     stateChoropleth.on('filtered', function() {
         if (stateChoropleth.filters().length == 0){
