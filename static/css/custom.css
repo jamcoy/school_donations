@@ -2,35 +2,34 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-
 #number-projects-nd {
-   font-size: 50px;
+    font-size: 50px;
 }
 
 #total-donations-nd {
-   font-size: 50px;
+    font-size: 50px;
 }
 
 #projects-container {
-   padding-right: 0;
+    padding-right: 0;
 }
 
 #schools-container {
-   padding-left: 0;
+    padding-left: 0;
 }
 
 #number-schools-nd {
-   font-size: 50px;
+    font-size: 50px;
 }
 
 .dc-chart g.row text {
-   fill: black;
-   font-size: 12px;
+    fill: black;
+    font-size: 12px;
 }
 
 #state-choropleth g path {
-   stroke: white;
-   stroke-width: 1px;
+    stroke: white;
+    stroke-width: 1px;
 }
 
 .dc-chart .pie-slice {
@@ -40,56 +39,53 @@ body {
 }
 
 .dc-select-menu {
-   background: #33CC99;
-   width: 80%;
-   border: none;
-   position: relative;
-   height: 31px;
-   font-size: 15px;
-   color: white;
-   vertical-align: middle;
-   text-align: center;
-   padding-top: 4px;
-   padding-bottom: 0;
+    background: #33CC99;
+    width: 80%;
+    border: none;
+    position: relative;
+    height: 31px;
+    font-size: 15px;
+    color: white;
+    vertical-align: middle;
+    text-align: center;
+    padding-top: 4px;
+    padding-bottom: 0;
 }
 
-.chart-wrapper{
+.row {
+    margin-left: -12px;
+    margin-right: -12px;
 }
 
-.row{
-   margin-left: -12px;
-   margin-right: -12px;
+.reset {
+    float: right;
 }
 
-.reset{
-   float: right;
-}
-
-#zoom-note{
-   color: #999999;
-   float: right;
+#zoom-note {
+    color: #999999;
+    float: right;
 }
 
 #loading-data {
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   z-index: 10;
-   padding-top: 80px;
-   background-color: #3d4a57;
-   color: white;
-   text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    padding-top: 80px;
+    background-color: #3d4a57;
+    color: white;
+    text-align: center;
 }
 
 /* Bootstrap sm breakpoint */
-@media screen and (max-width : 768px) {
-   #projects-container {
-      padding-right: 12px;
-   }
+@media screen and (max-width: 768px) {
+    #projects-container {
+        padding-right: 12px;
+    }
 
-   #schools-container {
-      padding-left: 12px;
-   }
+    #schools-container {
+        padding-left: 12px;
+    }
 }
