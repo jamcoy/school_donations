@@ -323,4 +323,15 @@ function makeGraphs(error, projectsJson, mapJson) {
             d3.select("#stateFilter").text(stateChoropleth.filters().length + " states");
         }
     });
+
+    // This media query event handler will reset filters when crossing bootstrap sm size
+    // States are filtered by map on big screens and a menu on small screens, which apply filters slightly differently
+    if (matchMedia) {
+      var mq = window.matchMedia("(min-width: 768px)");
+      mq.addListener(function() {
+          dc.filterAll();
+          dc.renderAll();
+      });
+    }
+
 }
