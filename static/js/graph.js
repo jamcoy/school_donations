@@ -138,7 +138,7 @@ function makeGraphs(error, projectsJson, mapJson) {
     donationValueChart
         .renderArea(true)
         .width(770)
-        .height(283)
+        .height(300)
         .title(function (d) { return formatDate(d.key) + ": " + formatDollarsCommas(d.value); })
         .transitionDuration(1000)
         .margins(dateDimChartMargins)
@@ -158,10 +158,10 @@ function makeGraphs(error, projectsJson, mapJson) {
 
      timeSelectChart
        .width(770)
-       .height(110)
+       .height(113)
        .margins(dateDimChartMargins)
        .dimension(dateDim)
-         .yAxisLabel("Projects")
+        .yAxisLabel("Projects")
        .group(numProjectsByDate)
        .transitionDuration(500)
        .x(d3.time.scale().domain([minDate, maxDate]))
