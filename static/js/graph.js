@@ -104,12 +104,12 @@ function makeGraphs(error, projectsJson, mapJson) {
    var minDate = dateDim.bottom(1)[0]["date_posted"];
    var maxDate = dateDim.top(1)[0]["date_posted"];
 
-    var width = 800,
+    var width = 775,
         height = 500;
 
     var mapProjection = d3.geo.albersUsa()
-        .scale(1050)
-        .translate([(width / 2) - 20, (height / 2)]);
+        .scale(1000)
+        .translate([(width / 2) - 28, (height / 2)]);
 
     // keep the date charts nicely aligned
     var dateDimChartMargins = {top: 30, right: 50, bottom: 25, left: 60};
@@ -137,7 +137,7 @@ function makeGraphs(error, projectsJson, mapJson) {
 
     donationValueChart
         .renderArea(true)
-        .width(800)
+        .width(770)
         .height(283)
         .title(function (d) { return formatDate(d.key) + ": " + formatDollarsCommas(d.value); })
         .transitionDuration(1000)
@@ -157,7 +157,7 @@ function makeGraphs(error, projectsJson, mapJson) {
     ;
 
      timeSelectChart
-       .width(800)
+       .width(770)
        .height(110)
        .margins(dateDimChartMargins)
        .dimension(dateDim)
