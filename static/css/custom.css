@@ -100,7 +100,23 @@ body {
         padding-left: 12px;
     }
 
-    #navbar-brand-states-combined{
-        font-size: 18px;
+    .navbar {
+        height: 50px;
+    }
+
+    .container {
+        height: 50px;
+    }
+
+    .pull-left {
+        height: 50px;
+    }
+
+    .pull-right {
+        height: 50px;
+    }
+
+    .navbar-nav {
+        margin: 0;
     }
 }
