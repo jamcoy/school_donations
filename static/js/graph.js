@@ -324,7 +324,15 @@ function makeGraphs(error, projectsJson, mapJson) {
         }
     });
 
-    // This media query event handler will reset filters when crossing bootstrap sm size
+    selectField.on('filtered', function() {
+        if (selectField.filters().length == 0) {
+            d3.select("#stateFilter").text("All states");
+        } else {
+            d3.select("#stateFilter").text(selectField.filters());
+        }
+    });
+
+    // This media query event handler will reset filters when crossing bootstrap sm size (when map is shown / hidden)
     // States are filtered by map on big screens and a menu on small screens, which apply filters slightly differently
     if (matchMedia) {
       var mq = window.matchMedia("(min-width: 768px)");
