@@ -106,36 +106,26 @@
        </div>
 
        <div class="row">
-       <!-- Donation value Chart -->
+       <!-- Combined donation / projects by time charts -->
            <div class="col-lg-12">
                <div class="chart-wrapper" data-step="12" data-intro="The description that you want" style="font-weight: normal" data-position="right">
                    <div class="chart-title">
-                       Donations (USD) by Date
+                       Donations (USD) and Projects by Date
+                       <a class="reset" href="javascript:timeSelectChart.filterAll();dc.redrawAll();" style="">reset</a>
                    </div>
                    <div class="chart-stage">
                        <div id="donation-value-line-chart"></div>
                    </div>
+                  <div class="chart-stage">
+                       <div id="time-select-chart"></div>
+                        <div id="zoom-note">
+                            select a range to zoom in
+                        </div>
+                    </div>
                </div>
            </div>
-       <!-- Donation value Chart -->
+       <!-- Combined donation / projects by time charts -->
            </div>
-
-       <div class="row">
-            <!-- Time Chart -->
-           <div class="col-lg-12">
-               <div class="chart-wrapper" data-step="1" data-intro="The description that you want" style="font-weight: normal" data-position="right">
-                   <div class="chart-title">
-                       Number of Projects by Date
-                       <a class="reset" href="javascript:timeChart.filterAll();dc.redrawAll();" style="">reset</a>
-                   </div>
-                   <div class="chart-stage">
-                       <div id="time-chart"></div>
-                   </div>
-               </div>
-           </div>
-           <!-- Time Chart -->
-
-        </div>
 
 
     </div>

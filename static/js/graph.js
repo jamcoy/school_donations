@@ -2,12 +2,11 @@
 // filtered by other page controls. (as recommended on dc-js github pages)
 // makes things like the reset buttons possible
 
-var timeChart,
+var timeSelectChart,
     resourceTypeChart,
     povertyLevelChart,
     numberProjectsND,
     totalDonationsND,
-    fundingStatusChart,
     primaryFocusAreaChart,
     gradeLevelChart,
     stateChoropleth,
@@ -106,11 +105,11 @@ function makeGraphs(error, projectsJson, mapJson) {
    var maxDate = dateDim.top(1)[0]["date_posted"];
 
     var width = 800,
-        height = 540;
+        height = 500;
 
     var mapProjection = d3.geo.albersUsa()
         .scale(1050)
-        .translate([(width / 2) - 20, (height / 2) - 30]); // 30 leaves a little space for a legend
+        .translate([(width / 2) - 20, (height / 2)]);
 
     // keep the date charts nicely aligned
     var dateDimChartMargins = {top: 30, right: 50, bottom: 25, left: 60};
@@ -120,7 +119,7 @@ function makeGraphs(error, projectsJson, mapJson) {
     var formatDate = d3.time.format("%B %Y");
 
    //Charts
-   timeChart = dc.barChart("#time-chart");
+   timeSelectChart = dc.barChart("#time-select-chart");
    resourceTypeChart = dc.rowChart("#resource-type-row-chart");
    povertyLevelChart = dc.pieChart("#poverty-level-chart");
    numberProjectsND = dc.numberDisplay("#number-projects-nd");
@@ -139,35 +138,35 @@ function makeGraphs(error, projectsJson, mapJson) {
     donationValueChart
         .renderArea(true)
         .width(800)
-        .height(389)
+        .height(284)
         .title(function (d) { return formatDate(d.key) + ": " + formatCommas(d.value); })
-        .transitionDuration(500)
+        .transitionDuration(1000)
         .margins(dateDimChartMargins)
         .dimension(dateDim)
         .group(valueDonationsByDate)
+        .yAxisLabel("US Dollars")
         .mouseZoomable(false)
         .brushOn(false)
-        // range chart links its extent with the zoom of the timeChart
-        .rangeChart(timeChart)
+        // range chart links its extent with the zoom of the timeSelectChart
+        .rangeChart(timeSelectChart)
         .x(d3.time.scale().domain([minDate, maxDate]))
-        .xAxisLabel("Year")
         .elasticY(true)
         .renderHorizontalGridLines(true)
         .yAxis().ticks(8)
+
     ;
 
-     timeChart
+     timeSelectChart
        .width(800)
-       .height(234)
+       .height(110)
        .margins(dateDimChartMargins)
        .dimension(dateDim)
+         .yAxisLabel("Projects")
        .group(numProjectsByDate)
        .transitionDuration(500)
        .x(d3.time.scale().domain([minDate, maxDate]))
        .elasticY(true)
-       .xAxisLabel("Year")
-     .renderHorizontalGridLines(true)
-       .yAxis().ticks(8)
+       .yAxis().ticks(2)
     ;
 
     numberProjectsND
@@ -292,7 +291,7 @@ function makeGraphs(error, projectsJson, mapJson) {
 
     stateChoropleth
         .width(800)
-        .height(540)
+        .height(500)
         .dimension(stateDim)
         .group(totalDonationsByState)
         .overlayGeoJson(mapJson.features, "school_state_full", function (d) {

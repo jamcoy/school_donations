@@ -64,6 +64,11 @@ body{
    float: right;
 }
 
+#zoom-note{
+   color: #999999;
+   float: right;
+}
+
 /* Bootstrap SM breakpoint */
 @media screen and (max-width : 768px) {
    #projects-container {
