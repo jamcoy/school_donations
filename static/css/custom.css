@@ -120,3 +120,10 @@ body {
         margin: 0;
     }
 }
+
+/* Extra Small Devices, Phones */
+@media screen and (max-width : 480px) {
+    #navbar-brand-states-combined {
+        font-size: 14px;
+    }
+}
