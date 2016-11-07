@@ -139,7 +139,7 @@ function makeGraphs(error, projectsJson, mapJson) {
         .renderArea(true)
         .width(800)
         .height(284)
-        .title(function (d) { return formatDate(d.key) + ": " + formatCommas(d.value); })
+        .title(function (d) { return formatDate(d.key) + ": " + formatDollarsCommas(d.value); })
         .transitionDuration(1000)
         .margins(dateDimChartMargins)
         .dimension(dateDim)
