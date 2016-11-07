@@ -8,10 +8,6 @@ function startGuide() {
                 intro: "<b>Introduction</b><br/>This dashboard is built using d3.js, dc.js, crossfilter, bootstrap, flask blah blah.  Click next for a guided tour of the features."
             },
             {
-                element: "#tourStep0",
-                intro: "<b>Reset All Button</b><br/>A number of filters can be applied to the dataset.  To remove all the filters at any time, click the 'Reset all' button.  Each chart has its own reset button in the top right corner for resetting filters applied using the respective chart."
-            },
-            {
                 element: "#tourStep1",
                 intro: "<b>US State Selection Menu</b><br/>Filter the data by state using this drop-down menu.  If you switch to a larger screen, or increase the width of your browser, this menu will be replaced by an interactive map."
             },
@@ -21,11 +17,11 @@ function startGuide() {
             },
             {
                 element: "#tourStep3",
-                intro: "<b>Distribution by State</b><br/>The colours on the choropleth show how much the states have donated compared to one another.  Click one or more states on the choropleth to filter data.  Click the same state again to remove the filter.  Hover your mouse for details of each state's donations.<br/>On a small screen, the map will be replaced by a menu."
+                intro: "<b>Distribution by State</b><br/>The colours on the choropleth show how many dollars the states have donated compared to one another.<br/>Click one or more states on the choropleth to filter data.  Click the same state again to remove the filter, or by clicking 'reset'.<br/>Hover your mouse for details of each state's donations.<br/>On a small screen, the map will be replaced by a menu."
             },
             {
                 element: "#tourStep4",
-                intro: "<b>Donations and Projects by Date</b><br/>Click and drag your mouse across the project bar chart (the lower of the two charts) to zoom into a specific date range."
+                intro: "<b>Donations and Projects by Date</b><br/>Click and drag your mouse across the project bar chart (the lower of the two charts) to zoom into a specific date range.<br/>Clear the filter by clicking 'reset'."
             },
             {
                 element: "#tourStep5",
@@ -50,9 +46,9 @@ function startGuide() {
     if (matchMedia) {
         var mq = window.matchMedia("(min-width: 768px)");
         if (mq.matches) {
-            tourGuide.steps.splice(2, 1); // state menu selector
+            tourGuide.steps.splice(1, 1); // state menu selector
         } else {
-            tourGuide.steps.splice(4, 1); // choropleth
+            tourGuide.steps.splice(3, 1); // choropleth
         }
     }
     tour.setOptions(tourGuide);
