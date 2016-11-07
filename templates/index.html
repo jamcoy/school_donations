@@ -5,7 +5,7 @@
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
 
     <title>School Donations Dashboard</title>
-   <link rel="stylesheet" href="../static/lib/css//bootstrap.min.css">
+   <link rel="stylesheet" href="../static/lib/css/bootstrap.min.css">
    <link rel="stylesheet" href="../static/lib/css/keen-dashboards.css">
    <link rel="stylesheet" href="../static/lib/css/dc.css">
    <link rel="stylesheet" href="../static/css/custom.css">
@@ -19,7 +19,7 @@
        <div class="navbar-header">
            <a class="navbar-brand" href="./">School Donations Dashboard | Showing: <span id="stateFilter">All states</span></a>
            <button class="intro_button" type="button" autofocus onclick="javascript:startGuide();">Start Tour!</button>
-           <a class="reset" href="javascript:dc.filterAll();dc.renderAll();" style="">Reset All</a>
+            <a  id="tourStep0" class="reset" href="javascript:dc.filterAll();dc.renderAll();">Reset All</a>
        </div>
    </div>
 </div>
@@ -33,8 +33,7 @@
            <div class="row">
           <!-- menu select -->
            <div class="col-sm-12 hidden-sm hidden-md hidden-lg">
-               <div class="chart-wrapper" data-step="1" data-intro="The description that you want"
-                    style="font-weight: normal" data-position="right">
+               <div class="chart-wrapper" id="tourStep1">
                    <div class="chart-title">
                        Projects State (An interactive map is available on larger screens)
                    </div>
@@ -49,11 +48,11 @@
    <div class="row">
 
    <div class="col-lg-8">
-        <div class="row">
+        <div class="row" id="tourStep2">
 
            <!-- Metric 1 -->
            <div class="col-sm-3" id="projects-container">
-               <div class="chart-wrapper" data-step="2" data-intro="The description that you want" style="font-weight: normal" data-position="right">
+               <div class="chart-wrapper">
                    <div class="chart-title">
                        Number of Projects
                    </div>
@@ -66,7 +65,7 @@
 
            <!-- Metric 2 -->
            <div class="col-sm-6">
-               <div class="chart-wrapper" data-step="3" data-intro="The description that you want" style="font-weight: normal" data-position="right">
+               <div class="chart-wrapper">
                    <div class="chart-title">
                        Money Raised (USD)
                    </div>
@@ -79,7 +78,7 @@
 
            <!-- Metric 3 -->
            <div class="col-sm-3" id="schools-container">
-               <div class="chart-wrapper" data-step="4" data-intro="The description that you want" style="font-weight: normal" data-position="right">
+               <div class="chart-wrapper">
                    <div class="chart-title">
                        Schools Reached
                    </div>
@@ -97,10 +96,10 @@
 
             <!-- Choropleth -->
             <div class="col-lg-12 hidden-xs">
-               <div class="chart-wrapper" data-step="5" data-intro="The description that you want" style="font-weight: normal" data-position="right">
+               <div class="chart-wrapper" id="tourStep3">
                    <div class="chart-title">
                        Distribution by State (colour: total US dollars raised)
-                       <a class="reset" href="javascript:stateChoropleth.filterAll();dc.redrawAll();" style="">reset</a>
+                       <a class="reset" href="javascript:stateChoropleth.filterAll();dc.redrawAll();">reset</a>
                    </div>
                    <div class="chart-stage">
                        <div id="state-choropleth"></div>
@@ -113,10 +112,10 @@
        <div class="row">
        <!-- Combined donation / projects by time charts -->
            <div class="col-lg-12">
-               <div class="chart-wrapper" data-step="6" data-intro="The description that you want" style="font-weight: normal" data-position="right">
+               <div class="chart-wrapper" id="tourStep4">
                    <div class="chart-title">
                        Donations (USD) and Projects by Date
-                       <a class="reset" href="javascript:timeSelectChart.filterAll();dc.redrawAll();" style="">reset</a>
+                       <a class="reset" href="javascript:timeSelectChart.filterAll();dc.redrawAll();">reset</a>
                    </div>
                    <div class="chart-stage">
                        <div id="donation-value-line-chart"></div>
@@ -139,10 +138,10 @@
 
                <!-- Resources -->
                 <div class="col-sm-6 col-lg-12">
-                   <div class="chart-wrapper" data-step="7" data-intro="The description that you want" style="font-weight: normal" data-position="right">
+                   <div class="chart-wrapper" id="tourStep5">
                        <div class="chart-title">
                            Projects by Resource Type
-                           <a class="reset" href="javascript:resourceTypeChart.filterAll();dc.redrawAll();" style="">reset</a>
+                           <a class="reset" href="javascript:resourceTypeChart.filterAll();dc.redrawAll();">reset</a>
                        </div>
                        <div class="chart-stage">
                            <div id="resource-type-row-chart"></div>
@@ -153,10 +152,10 @@
 
               <!-- Primary focus area -->
                 <div class="col-sm-6 col-lg-12">
-                   <div class="chart-wrapper" data-step="8" data-intro="The description that you want" style="font-weight: normal" data-position="right">
+                   <div class="chart-wrapper"  id="tourStep6">
                        <div class="chart-title">
                            Projects by Primary Focus Area
-                           <a class="reset" href="javascript:primaryFocusAreaChart.filterAll();dc.redrawAll();" style="">reset</a>
+                           <a class="reset" href="javascript:primaryFocusAreaChart.filterAll();dc.redrawAll();">reset</a>
                        </div>
                        <div class="chart-stage">
                            <div id="primary-focus-area-row-chart"></div>
@@ -167,10 +166,10 @@
 
                  <!-- Poverty -->
                 <div class="col-sm-6 col-lg-12">
-                   <div class="chart-wrapper" data-step="9" data-intro="The description that you want" style="font-weight: normal" data-position="right">
+                   <div class="chart-wrapper"  id="tourStep7">
                        <div class="chart-title">
                            Projects by Poverty Level
-                           <a class="reset" href="javascript:povertyLevelChart.filterAll();dc.redrawAll();" style="">reset</a>
+                           <a class="reset" href="javascript:povertyLevelChart.filterAll();dc.redrawAll();">reset</a>
                        </div>
                        <div class="chart-stage">
                            <div id="poverty-level-chart"></div>
@@ -181,10 +180,10 @@
 
               <!-- Grade level -->
                 <div class="col-sm-6 col-lg-12">
-                   <div class="chart-wrapper" data-step="10" data-intro="The description that you want" style="font-weight: normal" data-position="right">
+                   <div class="chart-wrapper"  id="tourStep8">
                        <div class="chart-title">
                            Projects by Grade Level
-                           <a class="reset" href="javascript:gradeLevelChart.filterAll();dc.redrawAll();" style="">reset</a>
+                           <a class="reset" href="javascript:gradeLevelChart.filterAll();dc.redrawAll();">reset</a>
                        </div>
                        <div class="chart-stage">
                            <div id="grade-level-row-chart"></div>
