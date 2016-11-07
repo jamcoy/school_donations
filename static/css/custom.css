@@ -57,18 +57,17 @@ body {
     margin-right: -12px;
 }
 
-.navbar-button{
-    margin-top: 8px;
-    margin-left: 8px;
-}
-
 .reset {
     float: right;
 }
 
-#zoom-note {
-    color: #999999;
-    float: right;
+.navbar-buttons button{
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+#navbar-brand-states-combined{
+    color: white;
 }
 
 #loading-data {
@@ -84,6 +83,13 @@ body {
     text-align: center;
 }
 
+/* Bootstrap md breakpoint */
+@media screen and (max-width: 992px) {
+    #navbar-brand-states-combined{
+        font-size: 16px;
+    }
+}
+
 /* Bootstrap sm breakpoint */
 @media screen and (max-width: 768px) {
     #projects-container {
@@ -92,5 +98,9 @@ body {
 
     #schools-container {
         padding-left: 12px;
+    }
+
+    #navbar-brand-states-combined{
+        font-size: 18px;
     }
 }

@@ -17,24 +17,22 @@
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="./">
+            <div class="navbar-brand" id="navbar-brand-states-combined">
                 School Donations
-                <span class="hidden-xs hidden-sm">Dashboard</span>
-                &nbsp;&nbsp;-&nbsp;&nbsp;
-                <span class="hidden-xs hidden-sm">Showing:</span>
-                <span id="stateFilter">All states</span></a>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <button class="intro_button btn btn-primary navbar-button" type="button" autofocus
-                                onclick="javascript:startGuide();">Guided tour
-                        </button>
-                    </li>
-                    <li>
-                        <button class="btn btn-primary reset navbar-button" id="tourStep0"
-                                onclick="javascript:dc.filterAll();dc.renderAll();">Reset All
-                        </button>
-                    </li>
-                </ul>
+                <span class="hidden-md hidden-lg">&nbsp;&nbsp;-&nbsp;&nbsp;</span>
+                <span class="hidden-xs hidden-sm">Dashboard&nbsp;&nbsp;-&nbsp;&nbsp;Showing:&nbsp;&nbsp;</span>
+                <span id="stateFilter">All states</span>
+            </div>
+        </div>
+        <div class="navbar-buttons">
+            <p class="pull-right navbar-nav">
+                <button class="intro_button btn btn-primary navbar-btn" type="button" autofocus
+                        onclick="javascript:startGuide();">Guided Tour
+                </button>
+                <button class="btn btn-primary reset navbar-btn" id="tourStep0"
+                        onclick="javascript:dc.filterAll();dc.renderAll();">Reset All
+                </button>
+            </p>
         </div>
     </div>
 </div>

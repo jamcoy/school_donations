@@ -321,7 +321,7 @@ function makeGraphs(error, projectsJson, mapJson) {
     stateChoropleth.on('filtered', function () {
         if (stateChoropleth.filters().length == 0) {
             d3.select("#stateFilter").text("All states");
-        } else if (stateChoropleth.filters().length <= 4) {
+        } else if (stateChoropleth.filters().length <= 3) {
             d3.select("#stateFilter").text(stateChoropleth.filters().join(', '));
         } else {
             d3.select("#stateFilter").text(stateChoropleth.filters().length + " states");
