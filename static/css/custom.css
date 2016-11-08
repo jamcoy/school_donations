@@ -42,12 +42,12 @@ body {
 }
 
 .dc-select-menu {
-    background: #33CC99;
-    width: 80%;
+    background: #333333;
+    width: 200px;
     border: none;
     position: relative;
-    height: 31px;
-    font-size: 15px;
+    height: 35px;
+    font-size: 16px;
     color: white;
     vertical-align: middle;
     text-align: center;
@@ -112,5 +112,9 @@ body {
     #navbar-brand-states-combined {
         font-size: 12px;
     }
+
+    #total-donations-nd {
+    font-size: 40px;
+}
 
 }
