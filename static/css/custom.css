@@ -29,13 +29,16 @@ body {
 
 #state-choropleth g path {
     stroke: #666666;
-    stroke-width: 1px;
+    stroke-width: 0.1%;
 }
 
 .dc-chart .pie-slice {
-    fill: #111;
-    font-size: 12px;
-    cursor: pointer;
+    font-size: 14px;
+}
+
+.dc-chart .pie-slice path {
+    stroke: white;
+    stroke-width: 1px;
 }
 
 .dc-select-menu {

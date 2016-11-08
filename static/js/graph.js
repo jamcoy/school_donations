@@ -118,6 +118,10 @@ function makeGraphs(error, projectsJson, mapJson) {
     var formatDollarsCommas = d3.format("$,.0f");
     var formatDate = d3.time.format("%B %Y");
 
+    var rowChartColours = ['#aabedc', '#ffb482', '#99d18f', '#ff9998', '#bcabc9', '#bb9c96', '#f1b0c7'];
+    var pieChartColours = ['#1f77b4', '#ee6e0d', '#2ca02c', '#d62754'];
+
+
     //Charts
     timeSelectChart = dc.barChart("#time-select-chart");
     resourceTypeChart = dc.rowChart("#resource-type-row-chart");
@@ -145,9 +149,11 @@ function makeGraphs(error, projectsJson, mapJson) {
         .transitionDuration(1000)
         .margins(dateDimChartMargins)
         .dimension(dateDim)
-        .group(valueDonationsByDate)
+        .group(valueDonationsByDate, 'Monthly donations (USD)')
         .yAxisLabel("US Dollars")
         .mouseZoomable(false)
+        .ordinalColors(['#41ab5d'])
+        .legend(dc.legend().x(330).y(10).itemHeight(13).gap(5))
         .brushOn(false)
         // range chart links its extent with the zoom of the timeSelectChart
         .rangeChart(timeSelectChart)
@@ -207,6 +213,7 @@ function makeGraphs(error, projectsJson, mapJson) {
             return d.key + ": " + formatCommas(d.value);
         })
         .dimension(resourceTypeDim)
+        .ordinalColors(rowChartColours)
         .group(numProjectsByResourceType)
         .elasticX(true)
         .xAxis().ticks(4)
@@ -219,6 +226,7 @@ function makeGraphs(error, projectsJson, mapJson) {
             return d.key + ": " + formatCommas(d.value);
         })
         .dimension(primaryFocusAreaDim)
+        .ordinalColors(rowChartColours)
         .group(numProjectsByPrimaryFocusArea)
         .elasticX(true)
         .xAxis().ticks(4)
@@ -237,6 +245,7 @@ function makeGraphs(error, projectsJson, mapJson) {
         .innerRadius(40)
         .cx(230)
         .cy(117)
+        .ordinalColors(pieChartColours)
         .ordering(function (d) {
             if (d.key == "Grades PreK-2") {
                 return 0;
@@ -295,6 +304,7 @@ function makeGraphs(error, projectsJson, mapJson) {
         })
         .cx(230)
         .cy(117)
+        .ordinalColors(pieChartColours)
         .legend(dc.legend().x(20).y(10).itemHeight(13).gap(5))
     ;
 
