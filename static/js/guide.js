@@ -9,7 +9,7 @@ function startGuide() {
             },
             {
                 element: "#tourStep1",
-                intro: "<b>US State Selection Menu</b><br/>Filter the data by state using this drop-down menu.  If you switch to a larger screen, or increase the width of your browser, this menu will be replaced by an interactive map."
+                intro: "<b>US State Selection Menu</b><br/>Filter the data by state using this drop-down menu.  If you switch to a wider screen (try rotating your device), or increase the width of your browser, this menu will be replaced by an interactive map."
             },
             {
                 element: "#tourStep2",
