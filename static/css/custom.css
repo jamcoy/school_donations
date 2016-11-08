@@ -10,16 +10,16 @@ body {
     font-size: 50px;
 }
 
+#number-schools-nd {
+    font-size: 50px;
+}
+
 #projects-container {
     padding-right: 0;
 }
 
 #schools-container {
     padding-left: 0;
-}
-
-#number-schools-nd {
-    font-size: 50px;
 }
 
 .dc-chart g.row text {
