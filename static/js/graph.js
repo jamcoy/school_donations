@@ -307,8 +307,8 @@ function makeGraphs(error, projectsJson, mapJson) {
             return d.properties.NAME;
         })
         .projection(mapProjection)
-        .colors(d3.scale.quantize().range(['#f46d43', '#fdae61', '#fee090', '#ffffbf', '#e0f3f8', '#abd9e9', '#74add1', '#4575b4']))
-        .colorDomain([0, max_state / 8])
+        .colors(d3.scale.quantize().range(['#e5f5e0','#c7e9c0','#a1d99b','#74c476','#41ab5d','#238b45','#006d2c','#00441b']))
+        .colorDomain([0, max_state])
         .title(function (d) {
             return d.key + "\nMoney raised: " + formatDollarsCommas((d.value ? d.value : 0));
         })

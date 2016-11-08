@@ -28,7 +28,7 @@ body {
 }
 
 #state-choropleth g path {
-    stroke: white;
+    stroke: #666666;
     stroke-width: 1px;
 }
 
