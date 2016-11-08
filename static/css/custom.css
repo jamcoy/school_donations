@@ -64,9 +64,8 @@ body {
     float: right;
 }
 
-.navbar-buttons button{
-    margin-left: 4px;
-    margin-right: 4px;
+#nav-menu button{
+    margin-left: 8px;
 }
 
 #navbar-brand-states-combined{
@@ -103,30 +102,15 @@ body {
         padding-left: 12px;
     }
 
-    .navbar {
-        height: 50px;
-    }
-
-    .container {
-        height: 50px;
-    }
-
-    .pull-left {
-        height: 50px;
-    }
-
-    .pull-right {
-        height: 50px;
-    }
-
     .navbar-nav {
         margin: 0;
     }
 }
 
 /* Extra Small Devices, Phones */
-@media screen and (max-width : 480px) {
+@media screen and (max-width : 360px) {
     #navbar-brand-states-combined {
-        font-size: 14px;
+        font-size: 12px;
     }
+
 }
