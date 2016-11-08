@@ -37,7 +37,7 @@ function startGuide() {
             },
             {
                 element: "#tourStep8",
-                intro: "<b>Introduction</b><br/>This pie chart shows the donation distribution by student grade level."
+                intro: "<b>Projects by Grade Level</b><br/>This pie chart shows the donation distribution by student grade level."
             }
         ]
     };

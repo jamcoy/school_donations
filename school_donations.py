@@ -43,4 +43,4 @@ def donor_projects():
 
 if __name__ == "__main__":
     app.run(debug=True)
-    # app.run(host='IP address')
+    # app.run(host='ip address')
