@@ -33,7 +33,7 @@ function startGuide() {
             },
             {
                 element: "#tourStep7",
-                intro: "<b>Projects by Poverty Level</b><br/>This donut chart shows the donation distribution by poverty level.  Click any slice to filter the data.  Click the same sector again to remove the filter, or click 'reset' in the top right corner to remove all 'poverty level' filters."
+                intro: "<b>Projects by Poverty Level</b><br/>This donut chart shows the donation distribution by poverty level.  Click any slice to filter the data.  Click the same slice again to remove the filter, or click 'reset' in the top right corner to remove all 'poverty level' filters."
             },
             {
                 element: "#tourStep8",
