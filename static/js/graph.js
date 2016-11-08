@@ -141,7 +141,7 @@ function makeGraphs(error, projectsJson, mapJson) {
 
     donationValueChart
         .renderArea(true)
-        .width(770)
+        .width(750)
         .height(300)
         .title(function (d) {
             return formatDate(d.key) + ": " + formatDollarsCommas(d.value);
@@ -164,7 +164,7 @@ function makeGraphs(error, projectsJson, mapJson) {
     ;
 
     timeSelectChart
-        .width(770)
+        .width(750)
         .height(113)
         .margins(dateDimChartMargins)
         .dimension(dateDim)
@@ -207,7 +207,7 @@ function makeGraphs(error, projectsJson, mapJson) {
     ;
 
     resourceTypeChart
-        .width(380)
+        .width(360)
         .height(234)
         .title(function (d) {
             return d.key + ": " + formatCommas(d.value);
@@ -220,7 +220,7 @@ function makeGraphs(error, projectsJson, mapJson) {
     ;
 
     primaryFocusAreaChart
-        .width(380)
+        .width(360)
         .height(234)
         .title(function (d) {
             return d.key + ": " + formatCommas(d.value);
@@ -235,7 +235,7 @@ function makeGraphs(error, projectsJson, mapJson) {
 
     gradeLevelChart
         .height(234)
-        .width(380)
+        .width(360)
         .radius(105)
         .title(function (d) {
             return d.key + ": " + formatCommas(d.value);
@@ -243,7 +243,7 @@ function makeGraphs(error, projectsJson, mapJson) {
         .transitionDuration(1000)
         .dimension(gradeLevelDim)
         .innerRadius(40)
-        .cx(230)
+        .cx(220)
         .cy(117)
         .ordinalColors(pieChartColours)
         .ordering(function (d) {
@@ -273,7 +273,7 @@ function makeGraphs(error, projectsJson, mapJson) {
 
     povertyLevelChart
         .height(234)
-        .width(380)
+        .width(360)
         .radius(105)
         .title(function (d) {
             return d.key + ": " + formatCommas(d.value);
@@ -302,7 +302,7 @@ function makeGraphs(error, projectsJson, mapJson) {
             }
             return label;
         })
-        .cx(230)
+        .cx(220)
         .cy(117)
         .ordinalColors(pieChartColours)
         .legend(dc.legend().x(20).y(10).itemHeight(13).gap(5))
