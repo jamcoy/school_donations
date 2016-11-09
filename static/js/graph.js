@@ -1,11 +1,14 @@
-// make these objects accessible at the global scope so they can be modified or
-// filtered by other page controls. (as recommended on dc-js github pages)
-// makes things like the reset buttons possible
-
-var maxChartWidth = 750;
+// variables for tweaking the responsiveness of the dc.js charts
+var maxChartWidth = 750; // 768 < viewport
+var mediumChartWidth = 600; // 624 < viewport < 768
+var smallChartWidth = 460; // 480 < viewport < 768
+var extraSmallChartWidth = 350; // viewport < 480
 var choroPlethBaseScale = 990;
 var choroPlethBaseOffset = -16;
 
+// make these objects accessible at the global scope so they can be modified or
+// filtered by other page controls. (as recommended on dc-js github pages)
+// makes things like the reset buttons possible
 var timeSelectChart,
     resourceTypeChart,
     povertyLevelChart,
@@ -25,7 +28,7 @@ queue()
 
 function makeGraphs(error, projectsJson, mapJson) {
 
-    //Grab full state names from map data so we can use them on the choropleth
+    //Grab full state names from map data so we can use them elsewhere
     var stateFullname = [];
     var stateAbbreviation = [];
     for (var i in mapJson.features) {
@@ -47,7 +50,7 @@ function makeGraphs(error, projectsJson, mapJson) {
     //Create a Crossfilter instance
     var ndx = crossfilter(donorsUSProjects);
 
-    //Define Dimensions
+    //Define Dimensions (<8 dimensions is best for performance)
     var dateDim = ndx.dimension(function (d) {
         return d["date_posted"];
     });
@@ -60,9 +63,6 @@ function makeGraphs(error, projectsJson, mapJson) {
     var stateDim = ndx.dimension(function (d) {
         return d["school_state_full"];
     });
-    /*var totalDonationsDim = ndx.dimension(function (d) {
-     return d["total_donations"];
-     });*/
     var primaryFocusAreaDim = ndx.dimension(function (d) {
         return d["primary_focus_area"];
     });
@@ -108,18 +108,23 @@ function makeGraphs(error, projectsJson, mapJson) {
     var minDate = dateDim.bottom(1)[0]["date_posted"];
     var maxDate = dateDim.top(1)[0]["date_posted"];
 
-    // set widths based on screen size
+    // set initial widths based on screen size
     var chartWidth;
     if (matchMedia) {
         var mq1 = window.matchMedia("(min-width: 768px)");
         if (mq1.matches) {
             chartWidth = maxChartWidth;
         } else {
-            var mq2 = window.matchMedia("(min-width: 480px)");
+            var mq2 = window.matchMedia("(min-width: 624px)");
             if (mq2.matches) {
-                chartWidth =  580;
+                chartWidth = mediumChartWidth;
             } else {
-                chartWidth = 350;
+                var mq3 = window.matchMedia("(min-width: 480px)");
+                if (mq3.matches) {
+                    chartWidth = smallChartWidth;
+                } else {
+                    chartWidth = extraSmallChartWidth;
+                }
             }
         }
     }
@@ -135,15 +140,16 @@ function makeGraphs(error, projectsJson, mapJson) {
     // keep the date charts nicely aligned
     var dateDimChartMargins = {top: 30, right: 50, bottom: 25, left: 60};
 
+    // format numbers nicely for human consumption
     var formatCommas = d3.format(",.0f");
     var formatDollarsCommas = d3.format("$,.0f");
     var formatDate = d3.time.format("%B %Y");
 
+    // set colours
     var rowChartColours = ['#aabedc', '#ffb482', '#99d18f', '#ff9998', '#bcabc9', '#bb9c96', '#f1b0c7'];
     var pieChartColours = ['#1f77b4', '#ee6e0d', '#2ca02c', '#d62754'];
 
-
-    //Charts
+    // chart creation
     timeSelectChart = dc.barChart("#time-select-chart");
     resourceTypeChart = dc.rowChart("#resource-type-row-chart");
     povertyLevelChart = dc.pieChart("#poverty-level-chart");
@@ -155,15 +161,16 @@ function makeGraphs(error, projectsJson, mapJson) {
     donationValueChart = dc.lineChart("#donation-value-line-chart");
     schoolsReachedND = dc.numberDisplay("#number-schools-nd");
 
+    // chart settings
     selectField = dc.selectMenu('#menu-select')
         .dimension(stateDim)
         .group(stateGroup)
     ;
 
     donationValueChart
-        .renderArea(true)
         .width(chartWidth)
         .height(300)
+        .renderArea(true)
         .title(function (d) {
             return formatDate(d.key) + ": " + formatDollarsCommas(d.value);
         })
@@ -332,12 +339,12 @@ function makeGraphs(error, projectsJson, mapJson) {
     stateChoropleth
         .width(chartWidth)
         .height(choroPlethHeight)
+        .projection(mapProjection)
         .dimension(stateDim)
         .group(totalDonationsByState)
         .overlayGeoJson(mapJson.features, "school_state_full", function (d) {
             return d.properties.NAME;
         })
-        .projection(mapProjection)
         .colors(d3.scale.quantize().range(['#e5f5e0','#c7e9c0','#a1d99b','#74c476','#41ab5d','#238b45','#006d2c','#00441b']))
         .colorDomain([0, max_state])
         .title(function (d) {
@@ -347,8 +354,10 @@ function makeGraphs(error, projectsJson, mapJson) {
 
     dc.renderAll();
 
+    // obscure page with 'Loading...' until it's ready
     d3.select("#loading-data").attr("hidden", "");
 
+    // set title to reflect applied state filters
     stateChoropleth.on('filtered', function () {
         if (stateChoropleth.filters().length == 0) {
             d3.select("#stateFilter").text("All states");
@@ -359,6 +368,7 @@ function makeGraphs(error, projectsJson, mapJson) {
         }
     });
 
+    // update choropleth filters when user uses the menu instead
     selectField.on('filtered', function () {
         stateChoropleth.filterAll();
         if (selectField.filters().length == 0) {
@@ -369,16 +379,63 @@ function makeGraphs(error, projectsJson, mapJson) {
         }
     });
 
-    // This media query event handler will reset filters when crossing bootstrap sm size (when map is shown / hidden)
-    // from larger to smaller only, because multiple state selections doesn't fit with drop-down menu
-    if (matchMedia) {
-        var mq = window.matchMedia("(min-width: 768px)");
-        mq.addListener(function () {
-            if (mq.matches != true) {
-                dc.filterAll();
+    var resizeBoundary1 = new MQ_LISTENER(768, maxChartWidth, mediumChartWidth, true);
+    var resizeBoundary2 = new MQ_LISTENER(624, mediumChartWidth, smallChartWidth, false);
+    var resizeBoundary3 = new MQ_LISTENER(480, smallChartWidth, extraSmallChartWidth, false);
+
+    /*function resize(chartWidth) {
+        choroPlethHeight = chartWidth / 1.5;
+        choroPlethZoom = (chartWidth / maxChartWidth) * choroPlethBaseScale;
+        choroPlethOffset = (chartWidth / maxChartWidth) * choroPlethBaseOffset;
+        mapProjection = d3.geo.albersUsa()
+            .scale(choroPlethZoom)
+            .translate([(chartWidth / 2) + choroPlethOffset, (choroPlethHeight / 2)]);
+        stateChoropleth
+            .width(chartWidth)
+            .height(choroPlethHeight)
+            .projection(mapProjection);
+        donationValueChart
+            .width(chartWidth);
+        timeSelectChart
+            .width(chartWidth);
+    }*/
+
+    // listener object constructor
+    function MQ_LISTENER(listenWidth, upperWidth, lowerWidth, filterEverything) {
+        this.minWidth = "(min-width: " + listenWidth + "px)";
+        this.upperWidth = upperWidth;
+        this.lowerWidth = lowerWidth;
+        if (matchMedia) {
+            var self = this;
+            self.mq = window.matchMedia(self.minWidth);
+            self.mq.addListener(function() {
+                if (self.mq.matches) {
+                    self.resize(self.upperWidth);
+                } else {
+                    self.resize(self.lowerWidth);
+                    if (filterEverything == true) {
+                        dc.filterAll(); //(only needed when downsizing from > 768)
+                    }
+                }
                 dc.renderAll();
-            }
-        });
+            });
+        }
+        this.resize = function(chartWidth) {
+           choroPlethHeight = chartWidth / 1.5;
+            choroPlethZoom = (chartWidth / maxChartWidth) * choroPlethBaseScale;
+            choroPlethOffset = (chartWidth / maxChartWidth) * choroPlethBaseOffset;
+            mapProjection = d3.geo.albersUsa()
+                .scale(choroPlethZoom)
+                .translate([(chartWidth / 2) + choroPlethOffset, (choroPlethHeight / 2)]);
+            stateChoropleth
+                .width(chartWidth)
+                .height(choroPlethHeight)
+                .projection(mapProjection);
+            donationValueChart
+                .width(chartWidth);
+            timeSelectChart
+                .width(chartWidth);
+        }
     }
 
 }
