@@ -382,8 +382,14 @@ function makeGraphs(error, projectsJson, mapJson) {
         }
     });
 
-    // listen for browser resizes
-    $(window).on("resize", resizeWideCharts);
+    // listen for browser resize
+    $(window).on("resize", resizeWideCharts());
+
+    // listen for orientation change
+    var mq = window.matchMedia("(orientation: portrait)");
+    mq.addListener(function(m) {
+        resizeWideCharts();
+    });
 
     // test if the browser resize needs a chart resize
     function resizeWideCharts(){
