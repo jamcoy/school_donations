@@ -117,7 +117,7 @@ function makeGraphs(error, projectsJson, mapJson) {
         } else {
             var mq2 = window.matchMedia("(min-width: 480px)");
             if (mq2.matches) {
-                chartWidth =  600;
+                chartWidth =  580;
             } else {
                 chartWidth = 350;
             }
