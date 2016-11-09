@@ -267,7 +267,7 @@ function makeGraphs(error, projectsJson, mapJson) {
     gradeLevelChart
         .height(234)
         .width(360)
-        .radius(105)
+        .radius(100)
         .title(function (d) {
             return d.key + ": " + formatCommas(d.value);
         })
@@ -305,7 +305,7 @@ function makeGraphs(error, projectsJson, mapJson) {
     povertyLevelChart
         .height(234)
         .width(360)
-        .radius(105)
+        .radius(100)
         .title(function (d) {
             return d.key + ": " + formatCommas(d.value);
         })
