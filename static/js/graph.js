@@ -3,6 +3,9 @@ var maxChartWidth = 750; // 768 < viewport
 var mediumChartWidth = 600; // 624 < viewport < 768
 var smallChartWidth = 460; // 480 < viewport < 768
 var extraSmallChartWidth = 350; // viewport < 480
+var largeViewportSwitch = 768;
+var mediumViewportSwitch = 624;
+var smallViewportSwitch = 480;
 var choroPlethBaseScale = 990;
 var choroPlethBaseOffset = -16;
 
@@ -111,15 +114,15 @@ function makeGraphs(error, projectsJson, mapJson) {
     // set initial widths based on screen size
     var chartWidth;
     if (matchMedia) {
-        var mq1 = window.matchMedia("(min-width: 768px)");
+        var mq1 = window.matchMedia("(min-width: " + largeViewportSwitch + "px)");
         if (mq1.matches) {
             chartWidth = maxChartWidth;
         } else {
-            var mq2 = window.matchMedia("(min-width: 624px)");
+            var mq2 = window.matchMedia("(min-width: " + mediumViewportSwitch + "px)");
             if (mq2.matches) {
                 chartWidth = mediumChartWidth;
             } else {
-                var mq3 = window.matchMedia("(min-width: 480px)");
+                var mq3 = window.matchMedia("(min-width: " + smallViewportSwitch + "px)");
                 if (mq3.matches) {
                     chartWidth = smallChartWidth;
                 } else {
@@ -379,63 +382,44 @@ function makeGraphs(error, projectsJson, mapJson) {
         }
     });
 
-    var resizeBoundary1 = new MQ_LISTENER(768, maxChartWidth, mediumChartWidth, true);
-    var resizeBoundary2 = new MQ_LISTENER(624, mediumChartWidth, smallChartWidth, false);
-    var resizeBoundary3 = new MQ_LISTENER(480, smallChartWidth, extraSmallChartWidth, false);
+    // listen for browser resizes
+    $(window).on("resize", resizeWideCharts);
 
-    /*function resize(chartWidth) {
-        choroPlethHeight = chartWidth / 1.5;
-        choroPlethZoom = (chartWidth / maxChartWidth) * choroPlethBaseScale;
-        choroPlethOffset = (chartWidth / maxChartWidth) * choroPlethBaseOffset;
+    // test if the browser resize needs a chart resize
+    function resizeWideCharts(){
+        var winWidth = $(window).width();
+        if (winWidth < smallViewportSwitch && chartWidth != extraSmallChartWidth){
+            chartResize(extraSmallChartWidth);
+        } else if (winWidth >= smallViewportSwitch && winWidth < mediumViewportSwitch && chartWidth != smallChartWidth){
+            chartResize(smallChartWidth);
+        } else if (winWidth >= mediumViewportSwitch && winWidth < largeViewportSwitch && chartWidth != mediumChartWidth){
+            if (chartWidth == maxChartWidth) {
+                dc.filterAll(); // this is the switch from interactive chart to menu selection
+            }
+            chartResize(mediumChartWidth);
+        } else if (winWidth >= largeViewportSwitch && chartWidth != maxChartWidth){
+            chartResize(maxChartWidth);
+        }
+    }
+
+    // do the chart resize
+    function chartResize(width) {
+        chartWidth = width;
+        choroPlethHeight = width / 1.5;
+        choroPlethZoom = (width / maxChartWidth) * choroPlethBaseScale;
+        choroPlethOffset = (width / maxChartWidth) * choroPlethBaseOffset;
         mapProjection = d3.geo.albersUsa()
             .scale(choroPlethZoom)
-            .translate([(chartWidth / 2) + choroPlethOffset, (choroPlethHeight / 2)]);
+            .translate([(width / 2) + choroPlethOffset, (choroPlethHeight / 2)]);
         stateChoropleth
-            .width(chartWidth)
+            .width(width)
             .height(choroPlethHeight)
             .projection(mapProjection);
         donationValueChart
-            .width(chartWidth);
+            .width(width);
         timeSelectChart
-            .width(chartWidth);
-    }*/
-
-    // listener object constructor
-    function MQ_LISTENER(listenWidth, upperWidth, lowerWidth, filterEverything) {
-        this.minWidth = "(min-width: " + listenWidth + "px)";
-        this.upperWidth = upperWidth;
-        this.lowerWidth = lowerWidth;
-        if (matchMedia) {
-            var self = this;
-            self.mq = window.matchMedia(self.minWidth);
-            self.mq.addListener(function() {
-                if (self.mq.matches) {
-                    self.resize(self.upperWidth);
-                } else {
-                    self.resize(self.lowerWidth);
-                    if (filterEverything == true) {
-                        dc.filterAll(); //(only needed when downsizing from > 768)
-                    }
-                }
-                dc.renderAll();
-            });
-        }
-        this.resize = function(chartWidth) {
-           choroPlethHeight = chartWidth / 1.5;
-            choroPlethZoom = (chartWidth / maxChartWidth) * choroPlethBaseScale;
-            choroPlethOffset = (chartWidth / maxChartWidth) * choroPlethBaseOffset;
-            mapProjection = d3.geo.albersUsa()
-                .scale(choroPlethZoom)
-                .translate([(chartWidth / 2) + choroPlethOffset, (choroPlethHeight / 2)]);
-            stateChoropleth
-                .width(chartWidth)
-                .height(choroPlethHeight)
-                .projection(mapProjection);
-            donationValueChart
-                .width(chartWidth);
-            timeSelectChart
-                .width(chartWidth);
-        }
+            .width(width);
+        dc.renderAll();
     }
 
 }
