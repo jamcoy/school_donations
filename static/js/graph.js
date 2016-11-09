@@ -2,6 +2,10 @@
 // filtered by other page controls. (as recommended on dc-js github pages)
 // makes things like the reset buttons possible
 
+var maxChartWidth = 750;
+var choroPlethBaseScale = 990;
+var choroPlethBaseOffset = -16;
+
 var timeSelectChart,
     resourceTypeChart,
     povertyLevelChart,
@@ -104,27 +108,29 @@ function makeGraphs(error, projectsJson, mapJson) {
     var minDate = dateDim.bottom(1)[0]["date_posted"];
     var maxDate = dateDim.top(1)[0]["date_posted"];
 
-    var choroPlethWidth = 750,
-        choroPlethHeight = 500;
-
-    var mapProjection = d3.geo.albersUsa()
-        .scale(990)
-        .translate([(choroPlethWidth / 2) - 16, (choroPlethHeight / 2)]);
-
-    var donationTimeWidth;
+    // set widths based on screen size
+    var chartWidth;
     if (matchMedia) {
         var mq1 = window.matchMedia("(min-width: 768px)");
         if (mq1.matches) {
-            donationTimeWidth = 750;
+            chartWidth = maxChartWidth;
         } else {
             var mq2 = window.matchMedia("(min-width: 480px)");
             if (mq2.matches) {
-                donationTimeWidth =  600;
+                chartWidth =  600;
             } else {
-                donationTimeWidth = 350;
+                chartWidth = 350;
             }
         }
     }
+
+    // choropleth position, scale and projection
+    var choroPlethHeight = chartWidth / 1.5;
+    var choroPlethZoom = (chartWidth / maxChartWidth) * choroPlethBaseScale;
+    var choroPlethOffset = (chartWidth / maxChartWidth) * choroPlethBaseOffset;
+    var mapProjection = d3.geo.albersUsa()
+        .scale(choroPlethZoom)
+        .translate([(chartWidth / 2) + choroPlethOffset, (choroPlethHeight / 2)]);
 
     // keep the date charts nicely aligned
     var dateDimChartMargins = {top: 30, right: 50, bottom: 25, left: 60};
@@ -156,7 +162,7 @@ function makeGraphs(error, projectsJson, mapJson) {
 
     donationValueChart
         .renderArea(true)
-        .width(donationTimeWidth)
+        .width(chartWidth)
         .height(300)
         .title(function (d) {
             return formatDate(d.key) + ": " + formatDollarsCommas(d.value);
@@ -168,7 +174,7 @@ function makeGraphs(error, projectsJson, mapJson) {
         .yAxisLabel("US Dollars")
         .mouseZoomable(false)
         .ordinalColors(['#41ab5d'])
-        .legend(dc.legend().x(donationTimeWidth - 190).y(10).itemHeight(13).gap(5))
+        .legend(dc.legend().x(chartWidth - 190).y(10).itemHeight(13).gap(5))
         .brushOn(false)
         // range chart links its extent with the zoom of the timeSelectChart
         .rangeChart(timeSelectChart)
@@ -179,7 +185,7 @@ function makeGraphs(error, projectsJson, mapJson) {
     ;
 
     timeSelectChart
-        .width(donationTimeWidth)
+        .width(chartWidth)
         .height(113)
         .margins(dateDimChartMargins)
         .dimension(dateDim)
@@ -324,7 +330,7 @@ function makeGraphs(error, projectsJson, mapJson) {
     ;
 
     stateChoropleth
-        .width(choroPlethWidth)
+        .width(chartWidth)
         .height(choroPlethHeight)
         .dimension(stateDim)
         .group(totalDonationsByState)
