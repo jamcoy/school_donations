@@ -5,7 +5,7 @@ function startGuide() {
     var tourGuide = {
         "steps": [
             {
-                intro: "<b>Introduction</b><br/>This dashboard is built using d3.js, dc.js, crossfilter, bootstrap, flask blah blah.  Click next for a guided tour of the features."
+                intro: "<b>Introduction</b><br/>This dashboard is built using D3.js, D3-queue, dc.js, Crossfilter, Bootstrap, Flask, MongoDB, Dashboards by Keen IO and Intro.js.<br/><br/>The dataset has been taken from DonorsChoose.org, a US-based public charity raising funds for schools. The data has been limited to the first 60,000 documents.<br/><br/>Click next for a guided tour of the features."
             },
             {
                 element: "#tourStep1",
