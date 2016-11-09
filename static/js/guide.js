@@ -9,7 +9,7 @@ function startGuide() {
             },
             {
                 element: "#tourStep1",
-                intro: "<b>US State Selection Menu</b><br/>Filter the data by state using this drop-down menu.  If you switch to a wider screen (try rotating your device), or increase the width of your browser, this menu will be replaced by an interactive map."
+                intro: "<b>US State Selection Menu</b><br/>Filter the data by state using this drop-down menu.  If you switch to a wider screen (try rotating your device), or increase the width of your browser, the map will become interactive."
             },
             {
                 element: "#tourStep2",
@@ -17,7 +17,7 @@ function startGuide() {
             },
             {
                 element: "#tourStep3",
-                intro: "<b>Distribution by State</b><br/>The colours on the choropleth show how many dollars the states have donated compared to one another.<br/>Click one or more states on the choropleth to filter data.  Click the same state again to remove the filter, or by clicking 'reset'.<br/>Hover your mouse for details of each state's donations.<br/>On a small screen, the map will be replaced by a menu."
+                intro: "<b>Distribution by State</b><br/>The colours on the choropleth show how many dollars the states have donated compared to one another.<br/><br/><b>Interaction (larger screens only)</b></br>Click one or more states on the choropleth to filter data.  Click the same state again to remove the filter, or by clicking 'reset'.<br/>Hover your mouse for details of each state's donations."
             },
             {
                 element: "#tourStep4",
@@ -48,7 +48,7 @@ function startGuide() {
         if (mq.matches) {
             tourGuide.steps.splice(1, 1); // state menu selector
         } else {
-            tourGuide.steps.splice(3, 1); // choropleth
+            //tourGuide.steps.splice(3, 1); // choropleth
         }
     }
     tour.setOptions(tourGuide);
