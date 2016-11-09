@@ -104,12 +104,27 @@ function makeGraphs(error, projectsJson, mapJson) {
     var minDate = dateDim.bottom(1)[0]["date_posted"];
     var maxDate = dateDim.top(1)[0]["date_posted"];
 
-    var width = 775,
-        height = 500;
+    var choroPlethWidth = 750,
+        choroPlethHeight = 500;
 
     var mapProjection = d3.geo.albersUsa()
-        .scale(1000)
-        .translate([(width / 2) - 28, (height / 2)]);
+        .scale(990)
+        .translate([(choroPlethWidth / 2) - 16, (choroPlethHeight / 2)]);
+
+    var donationTimeWidth;
+    if (matchMedia) {
+        var mq1 = window.matchMedia("(min-width: 768px)");
+        if (mq1.matches) {
+            donationTimeWidth = 750;
+        } else {
+            var mq2 = window.matchMedia("(min-width: 480px)");
+            if (mq2.matches) {
+                donationTimeWidth =  600;
+            } else {
+                donationTimeWidth = 350;
+            }
+        }
+    }
 
     // keep the date charts nicely aligned
     var dateDimChartMargins = {top: 30, right: 50, bottom: 25, left: 60};
@@ -141,7 +156,7 @@ function makeGraphs(error, projectsJson, mapJson) {
 
     donationValueChart
         .renderArea(true)
-        .width(750)
+        .width(donationTimeWidth)
         .height(300)
         .title(function (d) {
             return formatDate(d.key) + ": " + formatDollarsCommas(d.value);
@@ -153,7 +168,7 @@ function makeGraphs(error, projectsJson, mapJson) {
         .yAxisLabel("US Dollars")
         .mouseZoomable(false)
         .ordinalColors(['#41ab5d'])
-        .legend(dc.legend().x(330).y(10).itemHeight(13).gap(5))
+        .legend(dc.legend().x(donationTimeWidth - 190).y(10).itemHeight(13).gap(5))
         .brushOn(false)
         // range chart links its extent with the zoom of the timeSelectChart
         .rangeChart(timeSelectChart)
@@ -164,7 +179,7 @@ function makeGraphs(error, projectsJson, mapJson) {
     ;
 
     timeSelectChart
-        .width(750)
+        .width(donationTimeWidth)
         .height(113)
         .margins(dateDimChartMargins)
         .dimension(dateDim)
@@ -309,8 +324,8 @@ function makeGraphs(error, projectsJson, mapJson) {
     ;
 
     stateChoropleth
-        .width(800)
-        .height(500)
+        .width(choroPlethWidth)
+        .height(choroPlethHeight)
         .dimension(stateDim)
         .group(totalDonationsByState)
         .overlayGeoJson(mapJson.features, "school_state_full", function (d) {
@@ -355,4 +370,5 @@ function makeGraphs(error, projectsJson, mapJson) {
             dc.renderAll();
         });
     }
+
 }
