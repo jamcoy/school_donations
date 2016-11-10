@@ -3,15 +3,19 @@ from flask import render_template
 from flask import send_from_directory
 from pymongo import MongoClient
 import json
+import os
 
 app = Flask(__name__)
 
 RESULT_LIMIT = 60000
 RESULT_OFFSET = 0
-MONGODB_HOST = 'ds149577.mlab.com'
-MONGODB_PORT = 49577
-MONGO_URI = 'mongodb://root:347yfuhb@ds149577.mlab.com:49577/heroku_hxxs4lrc'
-DBS_NAME = 'heroku_hxxs4lrc'
+MONGODB_HOST = os.environ.get("MONGODB_HOST")  # heroku deployment
+MONGODB_PORT = os.environ.get("MONGODB_PORT")  # heroku deployment
+MONGO_URI = os.environ.get("MONGODB_URI")  # heroku deployment
+DBS_NAME = os.environ.get("MONGODB_HOST")  # heroku deployment
+# MONGODB_HOST = 'localhost'  # local deployment
+# MONGODB_PORT = 27017  # local deployment
+# DBS_NAME = 'donorsUSA'  # local deployment
 COLLECTION_NAME = 'projects'
 FIELDS = {'funding_status': True, 'school_state': True, 'resource_type': True, 'poverty_level': True,
           'date_posted': True, 'primary_focus_area': True, 'grade_level': True, 'total_donations': True,
