@@ -8,10 +8,10 @@ app = Flask(__name__)
 
 RESULT_LIMIT = 60000
 RESULT_OFFSET = 0
-MONGODB_HOST = 'localhost'  # not used in deployment
-MONGODB_PORT = 27017  # not used in deployment
+MONGODB_HOST = 'ds149577.mlab.com'
+MONGODB_PORT = 49577
 MONGO_URI = 'mongodb://root:347yfuhb@ds149577.mlab.com:49577/heroku_hxxs4lrc'
-DBS_NAME = 'donorsUSA'
+DBS_NAME = 'heroku_hxxs4lrc'
 COLLECTION_NAME = 'projects'
 FIELDS = {'funding_status': True, 'school_state': True, 'resource_type': True, 'poverty_level': True,
           'date_posted': True, 'primary_focus_area': True, 'grade_level': True, 'total_donations': True,
