@@ -7,7 +7,7 @@ import os
 
 app = Flask(__name__)
 
-RESULT_LIMIT = 60000
+RESULT_LIMIT = os.environ.get('RESULT_LIMIT')
 RESULT_OFFSET = 0
 DBS_NAME = os.environ.get('DBS_NAME')  # heroku deployment
 MONGO_URI = os.environ.get('MONGO_URI')  # heroku deployment
