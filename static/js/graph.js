@@ -184,7 +184,7 @@ function makeGraphs(error, projectsJson, mapJson) {
         .yAxisLabel("US Dollars")
         .mouseZoomable(false)
         .ordinalColors(['#41ab5d'])
-        .legend(dc.legend().x(chartWidth - 190).y(10).itemHeight(13).gap(5))
+        .legend(dc.legend().x(120).y(20).itemHeight(13).gap(5))
         .brushOn(false)
         // range chart links its extent with the zoom of the timeSelectChart
         .rangeChart(timeSelectChart)
@@ -383,7 +383,7 @@ function makeGraphs(error, projectsJson, mapJson) {
     });
 
     // listen for browser resize
-    $(window).on("resize", resizeWideCharts());
+    $(window).on("resize", resizeWideCharts);
 
     // listen for orientation change
     var mq = window.matchMedia("(orientation: portrait)");
@@ -410,7 +410,7 @@ function makeGraphs(error, projectsJson, mapJson) {
 
     // do the chart resize
     function chartResize(width) {
-        chartWidth = width;
+        console.log(width);
         choroPlethHeight = width / 1.5;
         choroPlethZoom = (width / maxChartWidth) * choroPlethBaseScale;
         choroPlethOffset = (width / maxChartWidth) * choroPlethBaseOffset;
@@ -425,6 +425,7 @@ function makeGraphs(error, projectsJson, mapJson) {
             .width(width);
         timeSelectChart
             .width(width);
+        chartWidth = width;
         dc.renderAll();
     }
 
