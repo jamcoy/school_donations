@@ -9,10 +9,10 @@ app = Flask(__name__)
 
 RESULT_LIMIT = 60000
 RESULT_OFFSET = 0
-MONGODB_HOST = os.environ.get("MONGODB_HOST")  # heroku deployment
-MONGODB_PORT = os.environ.get("MONGODB_PORT")  # heroku deployment
-MONGO_URI = os.environ.get("MONGO_URI")  # heroku deployment
-DBS_NAME = os.environ.get("MONGODB_HOST")  # heroku deployment
+MONGODB_HOST = os.environ.get['MONGODB_HOST']  # heroku deployment
+MONGODB_PORT = os.environ.get['MONGODB_PORT']  # heroku deployment
+MONGO_URI = os.environ.get['MONGO_URI']  # heroku deployment
+DBS_NAME = os.environ.get['MONGODB_HOST']  # heroku deployment
 # MONGODB_HOST = 'localhost'  # local deployment
 # MONGODB_PORT = 27017  # local deployment
 # DBS_NAME = 'donorsUSA'  # local deployment
