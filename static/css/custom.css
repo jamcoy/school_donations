@@ -42,15 +42,15 @@ body {
 }
 
 .dc-select-menu {
-    background: #333333;
+    background: #dddddd;
     width: 200px;
-    border: none;
+    border: 1px solid black;
     position: relative;
     height: 35px;
     font-size: 16px;
-    color: white;
+    color: #333333;
     vertical-align: middle;
-    text-align: center;
+    text-align: left;
     padding-top: 4px;
     padding-bottom: 0;
 }
