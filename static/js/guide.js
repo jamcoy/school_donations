@@ -5,7 +5,7 @@ function startGuide() {
     var tourGuide = {
         "steps": [
             {
-                intro: "<b>Introduction</b><br/>This dashboard is built using D3.js, D3-queue, dc.js, Crossfilter, Bootstrap, Flask, MongoDB, Dashboards by Keen IO and Intro.js.<br/><br/>The dataset has been taken from DonorsChoose.org, a US-based public charity raising funds for schools. The data has been limited to the first 60,000 documents.<br/><br/>Click next for a guided tour of the features."
+                intro: "<b>Introduction</b><br/>This dashboard is built using D3.js, D3-queue, dc.js, Crossfilter, Bootstrap, Flask, MongoDB, Dashboards by Keen IO and Intro.js.<br/><br/>The dataset has been taken from DonorsChoose.org; a US-based public charity raising funds for schools.<br/><br/>Click next for a guided tour of the features."
             },
             {
                 element: "#tourStep1",
@@ -21,7 +21,7 @@ function startGuide() {
             },
             {
                 element: "#tourStep4",
-                intro: "<b>Donations and Projects by Date</b><br/>Click and drag your mouse across the project bar chart (the lower of the two charts) to zoom into a specific date range.<br/>Clear the filter by clicking 'reset'."
+                intro: "<b>Donations and Projects by Date</b><br/>The top area chart shows the total monetary value of donations by calendar month.  The bottom bar chart shows total projects by calendar month.<br/><br/>Click and drag your mouse across the project bar chart to zoom into a specific date range.<br/>Clear the filter by clicking 'reset'."
             },
             {
                 element: "#tourStep5",
