@@ -348,8 +348,8 @@ function makeGraphs(error, projectsJson, mapJson) {
         .overlayGeoJson(mapJson.features, "school_state_full", function (d) {
             return d.properties.NAME;
         })
-        .colors(d3.scale.quantize().range(['#e5f5e0','#c7e9c0','#a1d99b','#74c476','#41ab5d','#238b45','#006d2c','#00441b']))
-        .colorDomain([0, max_state])
+        .colors(d3.scale.quantize().range(['#e5f5e0','#c7e9c0','#a1d99b','#74c476','#41ab5d','#238b45','#006d2c']))
+        .colorDomain([0, max_state / 2])
         .title(function (d) {
             return d.key + "\nMoney raised: " + formatDollarsCommas((d.value ? d.value : 0));
         })
