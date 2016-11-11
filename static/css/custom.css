@@ -85,6 +85,10 @@ body {
     text-align: center;
 }
 
+#loading-data img {
+    margin: 20px;
+}
+
 #state-choropleth {
         pointer-events: auto;
     }
