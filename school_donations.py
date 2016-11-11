@@ -7,15 +7,22 @@ import os
 
 app = Flask(__name__)
 
-RESULT_LIMIT = int(os.environ.get('RESULT_LIMIT'))
-RESULT_OFFSET = 0
-DBS_NAME = os.environ.get('DBS_NAME')  # heroku deployment
-MONGO_URI = os.environ.get('MONGO_URI')  # heroku deployment
-MONGODB_HOST = os.environ.get('MONGODB_HOST')  # heroku deployment
-MONGODB_PORT = os.environ.get('MONGODB_PORT')  # heroku deployment
-# MONGODB_HOST = 'localhost'  # local deployment
-# MONGODB_PORT = 27017  # local deployment
-# DBS_NAME = 'donorsUSA'  # local deployment
+if os.environ.get('ROLE') == "server":  # heroku deployment
+    RESULT_LIMIT = int(os.environ.get('RESULT_LIMIT'))   # Tweak number of documents to suit server performance
+    RESULT_OFFSET = int(os.environ.get('RESULT_OFFSET'))   # Start from a different date if preferred
+    RESULT_LATEST = bool(os.environ.get('RESULT_SET'))  # Get the latest records if preferred
+    DBS_NAME = os.environ.get('DBS_NAME')
+    MONGO_URI = os.environ.get('MONGO_URI')
+    MONGODB_HOST = os.environ.get('MONGODB_HOST')
+    MONGODB_PORT = os.environ.get('MONGODB_PORT')
+else:  # local deployment
+    RESULT_LIMIT = 60000  # Tweak number of records to suit server performance
+    RESULT_OFFSET = 0
+    RESULT_LATEST = False
+    MONGODB_HOST = 'localhost'
+    MONGODB_PORT = 27017
+    DBS_NAME = 'donorsUSA'
+
 COLLECTION_NAME = 'projects'
 FIELDS = {'funding_status': True, 'school_state': True, 'resource_type': True, 'poverty_level': True,
           'date_posted': True, 'primary_focus_area': True, 'grade_level': True, 'total_donations': True,
@@ -34,11 +41,17 @@ def send_json():
 
 @app.route("/donorsUS/projects")
 def donor_projects():
-    # connection = MongoClient(MONGODB_HOST, MONGODB_PORT)  # local deployment
-    connection = MongoClient(MONGO_URI)  # heroku deployment
+    if os.environ.get('ROLE') == "server":  # heroku deployment
+        connection = MongoClient(MONGO_URI)
+    else:  # local deployment
+        connection = MongoClient(MONGODB_HOST, MONGODB_PORT)
+
     collection = connection[DBS_NAME][COLLECTION_NAME]
-    projects = collection.find(projection=FIELDS, limit=RESULT_LIMIT).skip(RESULT_OFFSET)  # skip some from start
-    #  projects = collection.find(projection=FIELDS).skip(collection.count() - RESULT_LIMIT)  # latest instead
+    if RESULT_LATEST:
+        projects = collection.find(projection=FIELDS).skip(collection.count() - RESULT_LIMIT - RESULT_OFFSET)  # latest
+    else:
+        projects = collection.find(projection=FIELDS, limit=RESULT_LIMIT).skip(RESULT_OFFSET)  # skip some from start
+
     json_projects = []
     for project in projects:
         json_projects.append(project)
@@ -48,6 +61,8 @@ def donor_projects():
 
 
 if __name__ == "__main__":
-    # app.run(debug=True)
-    app.run()
-    # app.run(host='ip address')
+    if os.environ.get('ROLE') == "server":  # heroku deployment
+        app.run()
+    else:  # local deployment
+        app.run(debug=True)
+        # app.run(host='ip address')  # for testing with other local devices
