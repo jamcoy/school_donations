@@ -31,7 +31,7 @@ The area chart (a line chart with the area under the line rendered) shows the nu
 The bar chart shows the number of projects per month.  The user can select a date region on the chart to apply a filter to the entire dataset.  The x-axis is aligned with the x-axis of the area chart.
 ###Row charts
 Row charts were selected to show how projects were distributed between different types of resources and different primary focus areas.  One or more rows can be selected to apply or remove filters.
-###Donut(pie) charts
+###Donut (pie) charts
 Donut charts (dc.js pie charts with an inner radius) were select to show how projects were distributed between different poverty groups and different grade levels.  One or more slices can be selected to apply or remove filters.
 ###Select menu
 In order to retain full functionality on small devices, a dc.js select menu enables selection of a US state using a drop-down menu.  This is hidden on larger displays.
