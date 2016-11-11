@@ -48,7 +48,7 @@ def donor_projects():
 
     collection = connection[DBS_NAME][COLLECTION_NAME]
     if RESULT_LATEST.upper() == "TRUE":
-        projects = collection.find(projection=FIELDS).skip(collection.count() - RESULT_LIMIT - RESULT_OFFSET)  # latest
+        projects = collection.find(projection=FIELDS).skip(collection.count() - RESULT_LIMIT)  # latest
     else:
         projects = collection.find(projection=FIELDS, limit=RESULT_LIMIT).skip(RESULT_OFFSET)  # skip some from start
 
