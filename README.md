@@ -3,7 +3,7 @@
 Code Institute stream 2 project.
 
 View here:
-[https://stream2.jamcoy.com](https://stream2.jamcoy.com) (this will redirect you to a Heroku app).
+[http://stream2.jamcoy.com](https://stream2.jamcoy.com) (this will redirect you to a Heroku app).
 
 ##About
 A dataset has been taken from DonorsChoose.org; a US-based public charity providing a platform for fundraising for schools.  The data is presented to the user in the form of an interactive dashboard containing a variety of charts.
