@@ -10,7 +10,7 @@ app = Flask(__name__)
 if os.environ.get('ROLE') == "server":  # heroku deployment
     RESULT_LIMIT = int(os.environ.get('RESULT_LIMIT'))   # Tweak number of documents to suit server performance
     RESULT_OFFSET = int(os.environ.get('RESULT_OFFSET'))   # Start from a different date if preferred
-    RESULT_LATEST = bool(os.environ.get('RESULT_SET'))  # Get the latest records if preferred
+    RESULT_LATEST = bool(os.environ.get('RESULT_LATEST'))  # Get the latest records if preferred
     DBS_NAME = os.environ.get('DBS_NAME')
     MONGO_URI = os.environ.get('MONGO_URI')
     MONGODB_HOST = os.environ.get('MONGODB_HOST')
