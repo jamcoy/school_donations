@@ -16,7 +16,7 @@ if os.environ.get('ROLE') == "server":  # heroku deployment
     MONGODB_HOST = os.environ.get('MONGODB_HOST')
     MONGODB_PORT = os.environ.get('MONGODB_PORT')
 else:  # local deployment
-    RESULT_LIMIT = 40000  # Tweak number of records to suit server performance
+    RESULT_LIMIT = 40000
     RESULT_OFFSET = 0
     RESULT_LATEST = False
     MONGODB_HOST = 'localhost'

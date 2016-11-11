@@ -1,10 +1,10 @@
 // variables for tweaking the responsiveness of the dc.js charts
-var maxChartWidth = 750; // 768 < viewport
-var mediumChartWidth = 600; // 624 < viewport < 768
-var smallChartWidth = 460; // 480 < viewport < 768
-var extraSmallChartWidth = 350; // viewport < 480
+var maxChartWidth = 750;
+var mediumChartWidth = 580;
+var smallChartWidth = 440;
+var extraSmallChartWidth = 330;
 var largeViewportSwitch = 768;
-var mediumViewportSwitch = 624;
+var mediumViewportSwitch = 596;
 var smallViewportSwitch = 480;
 var choroPlethBaseScale = 990;
 var choroPlethBaseOffset = -16;
@@ -192,6 +192,7 @@ function makeGraphs(error, projectsJson, mapJson) {
         .elasticY(true)
         .renderHorizontalGridLines(true)
         .yAxis().ticks(8)
+
     ;
 
     timeSelectChart
@@ -426,6 +427,7 @@ function makeGraphs(error, projectsJson, mapJson) {
         timeSelectChart
             .width(width);
         chartWidth = width;
+        timeSelectChart.rescale();
         dc.renderAll();
     }
 

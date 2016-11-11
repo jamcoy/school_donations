@@ -91,7 +91,7 @@ body {
 
 #state-choropleth {
         pointer-events: auto;
-    }
+}
 
 /* Bootstrap md breakpoint */
 @media screen and (max-width: 992px) {
@@ -125,6 +125,18 @@ body {
     #keen-padding-overide {
         padding-left: 4px;
         padding-right: 4px;
+    }
+
+    #donation-value-line-chart .x.axis text {
+        text-anchor: end !important;
+        transform: rotate(-30deg);
+        font-size: 7px;
+    }
+
+    #time-select-chart .x.axis text {
+        text-anchor: end !important;
+        transform: rotate(-30deg);
+        font-size: 7px;
     }
 
 }
