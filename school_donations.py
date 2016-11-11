@@ -10,7 +10,7 @@ app = Flask(__name__)
 if os.environ.get('ROLE') == "server":  # heroku deployment
     RESULT_LIMIT = int(os.environ.get('RESULT_LIMIT'))   # Tweak number of documents to suit server performance
     RESULT_OFFSET = int(os.environ.get('RESULT_OFFSET'))   # Start from a different date if preferred
-    RESULT_LATEST = bool(os.environ.get('RESULT_LATEST'))  # Get the latest records if preferred
+    RESULT_LATEST = (os.environ.get('RESULT_LATEST'))  # Get the latest records if preferred
     DBS_NAME = os.environ.get('DBS_NAME')
     MONGO_URI = os.environ.get('MONGO_URI')
     MONGODB_HOST = os.environ.get('MONGODB_HOST')
@@ -18,7 +18,7 @@ if os.environ.get('ROLE') == "server":  # heroku deployment
 else:  # local deployment
     RESULT_LIMIT = 40000
     RESULT_OFFSET = 0
-    RESULT_LATEST = False
+    RESULT_LATEST = "False"  # String on heroku
     MONGODB_HOST = 'localhost'
     MONGODB_PORT = 27017
     DBS_NAME = 'donorsUSA'
@@ -47,7 +47,7 @@ def donor_projects():
         connection = MongoClient(MONGODB_HOST, MONGODB_PORT)
 
     collection = connection[DBS_NAME][COLLECTION_NAME]
-    if RESULT_LATEST:
+    if RESULT_LATEST.upper() == "TRUE":
         projects = collection.find(projection=FIELDS).skip(collection.count() - RESULT_LIMIT - RESULT_OFFSET)  # latest
     else:
         projects = collection.find(projection=FIELDS, limit=RESULT_LIMIT).skip(RESULT_OFFSET)  # skip some from start
