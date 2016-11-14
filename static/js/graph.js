@@ -164,7 +164,9 @@ function makeGraphs(error, projectsJson, mapJson) {
     donationValueChart = dc.lineChart("#donation-value-line-chart");
     schoolsReachedND = dc.numberDisplay("#number-schools-nd");
 
-    // chart settings
+
+    // Define each of the charts
+
     selectField = dc.selectMenu('#menu-select')
         .dimension(stateDim)
         .group(stateGroup)
@@ -192,7 +194,6 @@ function makeGraphs(error, projectsJson, mapJson) {
         .elasticY(true)
         .renderHorizontalGridLines(true)
         .yAxis().ticks(8)
-
     ;
 
     timeSelectChart
@@ -209,7 +210,6 @@ function makeGraphs(error, projectsJson, mapJson) {
     ;
 
     numberProjectsND
-    //.formatNumber(d3.format("d"))
         .valueAccessor(function (d) {
             return d;
         })
@@ -219,7 +219,6 @@ function makeGraphs(error, projectsJson, mapJson) {
     ;
 
     totalDonationsND
-    //.formatNumber(d3.format("d"))
         .valueAccessor(function (d) {
             return d;
         })
@@ -229,7 +228,6 @@ function makeGraphs(error, projectsJson, mapJson) {
     ;
 
     schoolsReachedND
-    //.formatNumber(d3.format("d"))
         .valueAccessor(function (d) {
             return d;
         })
@@ -262,7 +260,6 @@ function makeGraphs(error, projectsJson, mapJson) {
         .group(numProjectsByPrimaryFocusArea)
         .elasticX(true)
         .xAxis().ticks(4)
-
     ;
 
     gradeLevelChart

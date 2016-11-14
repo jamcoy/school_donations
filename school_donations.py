@@ -65,4 +65,4 @@ if __name__ == "__main__":
         app.run()
     else:  # local deployment
         app.run(debug=True)
-        # app.run(host='ip address')  # for testing with other local devices
+
